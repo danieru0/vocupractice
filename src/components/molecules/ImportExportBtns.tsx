@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Button from '../atoms/Button';
 
 const Container = styled.div`
-    position: absolute;
+    position: fixed;
     bottom: 20px;
     left: 15px;
 `

@@ -14,9 +14,12 @@ import ImportExportBtsn from './components/molecules/ImportExportBtns';
 
 const GlobalContainer = styled.div`
 	width: 100%;
-	height: 100vh;
+	min-height: 100vh;
 	font-size: ${({theme}) => theme.fontSizeEm};
 	background: ${({theme}) => theme.primary};
+	padding: 50px;
+	display: flex;
+	flex-direction: column;
 `
 
 function App() {
