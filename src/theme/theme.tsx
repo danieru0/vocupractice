@@ -14,7 +14,9 @@ const theme: DefaultTheme = {
     checkBackground: "#C4C4C4",
     editColor: "#52ADA3",
 
-    fontSizeEm: '18px'
+    fontSizeEm: '18px',
+
+    primaryFont: "Rajdhani, sans-serif"
 }
 
 export { theme }

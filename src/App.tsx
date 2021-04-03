@@ -9,16 +9,19 @@ import Words from './pages/Words';
 import Practice from './pages/Practice';
 import NoFound from './pages/NoFound';
 
+import Logo from './components/molecules/Logo';
+
 const GlobalContainer = styled.div`
 	width: 100%;
 	height: 100vh;
-	font-family: ${({theme}) => theme.fontSizeEm};
+	font-size: ${({theme}) => theme.fontSizeEm};
 	background: ${({theme}) => theme.primary};
 `
 
 function App() {
 	return (
 		<GlobalContainer>
+			<Logo />
 			<Switch>
 				<Route exact path="/">
 					<Categories />

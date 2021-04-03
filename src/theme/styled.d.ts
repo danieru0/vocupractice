@@ -15,5 +15,6 @@ declare module "styled-components" {
         checkBackground: string;
         editColor: string;
         fontSizeEm: string;
+        primaryFont: string;
     }
 }
