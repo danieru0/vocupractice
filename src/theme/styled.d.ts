@@ -16,5 +16,6 @@ declare module "styled-components" {
         editColor: string;
         fontSizeEm: string;
         primaryFont: string;
+        secondaryFont: string;
     }
 }

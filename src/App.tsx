@@ -10,6 +10,7 @@ import Practice from './pages/Practice';
 import NoFound from './pages/NoFound';
 
 import Logo from './components/molecules/Logo';
+import ImportExportBtsn from './components/molecules/ImportExportBtns';
 
 const GlobalContainer = styled.div`
 	width: 100%;
@@ -42,6 +43,7 @@ function App() {
 					<NoFound />
 				</Route>
 			</Switch>
+			<ImportExportBtsn />
 		</GlobalContainer>
   	);
 }

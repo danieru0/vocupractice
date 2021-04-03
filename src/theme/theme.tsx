@@ -16,7 +16,8 @@ const theme: DefaultTheme = {
 
     fontSizeEm: '18px',
 
-    primaryFont: "Rajdhani, sans-serif"
+    primaryFont: "Rajdhani",
+    secondaryFont: "Roboto"
 }
 
 export { theme }
