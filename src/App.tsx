@@ -38,10 +38,10 @@ function App() {
 					<CategoryForm />
 				</Route>
 				<Route exact path="/category/:id/add">
-					<WordForm />
+					<WordForm type="add" />
 				</Route>
 				<Route exact path="/edit/:id">
-					<WordForm />
+					<WordForm type="edit" />
 				</Route>
 				<Route exact path="/category/:id">
 					<Words />

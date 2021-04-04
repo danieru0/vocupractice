@@ -22,7 +22,7 @@ const WordsTable = () => {
     return (
         <Container>
             <Body>
-                <TableRow id={1} word="食べる" translation="to eat" reading="taberu" onCheckClick={handleCheckClick} onDeleteClick={() => alert('delete')} />
+                <TableRow id="1" word="食べる" translation="to eat" reading="taberu" onCheckClick={handleCheckClick} onDeleteClick={() => alert('delete')} />
             </Body>
         </Container>
     );

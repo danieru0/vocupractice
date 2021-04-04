@@ -11,7 +11,7 @@ interface ITableRow {
     reading?: string;
     onCheckClick: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onDeleteClick: () => void;
-    id: number;
+    id: string;
 }
 
 interface TableDataProps {
