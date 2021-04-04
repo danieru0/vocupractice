@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 import Categories from './pages/Categories';
 import CategoryForm from './pages/CategoryForm';
@@ -11,6 +13,8 @@ import NoFound from './pages/NoFound';
 
 import Logo from './components/molecules/Logo';
 import ImportExportBtsn from './components/molecules/ImportExportBtns';
+
+library.add(faEdit, faTrash);
 
 const GlobalContainer = styled.div`
 	width: 100%;
@@ -33,13 +37,16 @@ function App() {
 				<Route path="/addcategory">
 					<CategoryForm />
 				</Route>
-				<Route path="/addword">
+				<Route exact path="/category/:id/add">
 					<WordForm />
 				</Route>
-				<Route path="/category/:id">
+				<Route exact path="/edit/:id">
+					<WordForm />
+				</Route>
+				<Route exact path="/category/:id">
 					<Words />
 				</Route>
-				<Route path="/practice/:id">
+				<Route exact path="/practice/:id">
 					<Practice />
 				</Route>
 				<Route path="*">

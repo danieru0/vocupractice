@@ -4,7 +4,7 @@ import { theme } from '../../theme/theme';
 import { darken } from 'polished';
 import { Link } from 'react-router-dom';
 
-type backgroundColor = 'import' | 'export' | 'normal';
+type backgroundColor = 'import' | 'export' | 'normal' | 'delete';
 type width = 'small' | 'middle' | 'big';
 
 interface IButton {
@@ -29,6 +29,8 @@ const handleColorType = (color: backgroundColor) => {
             return theme.exportColor;
         case "normal":
             return theme.secondary;
+        case "delete":
+            return theme.deleteColor;
         default: return theme.secondary;
     }
 }

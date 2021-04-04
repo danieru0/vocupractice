@@ -26,7 +26,7 @@ const FullCategories = () => {
         <Container>
             <Button href="/addcategory" backgroundColor="normal" width="small">Add category</Button>
             <Wrapper>
-                <CategoryBlock href="/" name="a" />
+                <CategoryBlock href="/category/1" name="a" />
                 <CategoryBlock href="/" name="b" />
                 <CategoryBlock href="/" name="c" />
                 <CategoryBlock href="/" name="d" />
