@@ -9,7 +9,8 @@ const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    margin-top: 100px;
+    margin-bottom: auto;
+    margin-top: auto;
 `
 
 const Wrapper = styled.div`
@@ -23,14 +24,13 @@ const Wrapper = styled.div`
 const FullCategories = () => {
     return (
         <Container>
-            <Button backgroundColor="normal" width="small" onClick={() => alert('yo')}>Add category</Button>
+            <Button href="/addcategory" backgroundColor="normal" width="small">Add category</Button>
             <Wrapper>
-            <CategoryBlock href="/" name="a" />
-            <CategoryBlock href="/" name="b" />
-            <CategoryBlock href="/" name="c" />
-            <CategoryBlock href="/" name="d" />
-            <CategoryBlock href="/" name="Wei" />
-            <CategoryBlock href="/" name="fi" />
+                <CategoryBlock href="/" name="a" />
+                <CategoryBlock href="/" name="b" />
+                <CategoryBlock href="/" name="c" />
+                <CategoryBlock href="/" name="d" />
+                <CategoryBlock href="/" name="Wei" />
             </Wrapper>
         </Container>
     );

@@ -9,12 +9,14 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: auto;
+    margin-top: auto;
 `
 
 const EmptyCategories = () => {
     return (
         <Container>
-            <Button backgroundColor="normal" width="small" onClick={() => alert('yo')}>Add category</Button>
+            <Button href="/addcategory" backgroundColor="normal" width="small">Add category</Button>
         </Container>
     );
 };

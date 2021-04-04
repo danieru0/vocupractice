@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import EmptyCategories from '../components/organisms/EmptyCategories';
 import FullCategories from '../components/organisms/FullCategories';
+import Title from '../components/molecules/Title';
 
 const Container = styled.div`
     width: 100%;
@@ -10,6 +11,7 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     flex: 1;
 `
 
@@ -18,6 +20,7 @@ const Categories = () => {
 
     return (
         <Container>
+            <Title />
             {
                 data ? <FullCategories /> : <EmptyCategories />
             }
