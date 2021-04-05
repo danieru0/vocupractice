@@ -1,13 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive'
 
 import PageTitle from '../atoms/PageTitle';
 
 const Container = styled.div`
-    position: absolute;
-    left: 20px;
-    top: 20px;
+    margin-right: auto;
 `
 
 const StyledLink = styled(Link)`
@@ -15,10 +14,14 @@ const StyledLink = styled(Link)`
 `
 
 const Logo = () => {
+    const isMobile = useMediaQuery({
+        query: '(max-width: 470px)'
+    });
+
     return (
         <Container>
             <StyledLink to="/">
-                <PageTitle size="big">Vocupractice</PageTitle>
+                <PageTitle size={isMobile ? 'small' : 'big'}>Vocupractice</PageTitle>
             </StyledLink>
         </Container>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrash, faFileImport, faFileExport } from '@fortawesome/free-solid-svg-icons'
 
 import Categories from './pages/Categories';
 import CategoryForm from './pages/CategoryForm';
@@ -10,11 +10,9 @@ import WordForm from './pages/WordForm';
 import Words from './pages/Words';
 import Practice from './pages/Practice';
 import NoFound from './pages/NoFound';
+import Headbar from './components/organisms/Headbar';
 
-import Logo from './components/molecules/Logo';
-import ImportExportBtsn from './components/molecules/ImportExportBtns';
-
-library.add(faEdit, faTrash);
+library.add(faEdit, faTrash, faFileExport, faFileImport);
 
 const GlobalContainer = styled.div`
 	width: 100%;
@@ -29,7 +27,7 @@ const GlobalContainer = styled.div`
 function App() {
 	return (
 		<GlobalContainer>
-			<Logo />
+			<Headbar />
 			<Switch>
 				<Route exact path="/">
 					<Categories />
@@ -53,7 +51,6 @@ function App() {
 					<NoFound />
 				</Route>
 			</Switch>
-			<ImportExportBtsn />
 		</GlobalContainer>
   	);
 }

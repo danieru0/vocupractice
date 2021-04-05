@@ -9,6 +9,12 @@ interface ITitle {
 
 const Container = styled.div`
     padding-bottom: 15px;
+
+    @media (max-width: 1160px) {
+        position: relative;
+        top: 20px;
+        padding-bottom: 20px;
+    }
 `
 
 const Title = ({title}: ITitle) => {

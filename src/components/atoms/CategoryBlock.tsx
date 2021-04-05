@@ -29,6 +29,10 @@ const StyledLink = styled(Link)`
     &:hover {
         background: ${({theme}) => darken(0.020, theme.primary)};
     }
+
+    @media (max-width: 400px) {
+        margin: auto;
+    }
 `
 
 const CategoryBlock = ({name, href}: ICategoryBlocks) => {

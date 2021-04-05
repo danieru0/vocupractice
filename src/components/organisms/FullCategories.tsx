@@ -11,6 +11,15 @@ const Container = styled.div`
     align-items: flex-start;
     margin-bottom: auto;
     margin-top: auto;
+
+    @media (max-width: 600px) {
+        width: 90%;
+    }
+
+    @media (max-width: 400px) {
+        justify-content: center;
+        align-items: center;
+    }
 `
 
 const Wrapper = styled.div`
@@ -19,12 +28,27 @@ const Wrapper = styled.div`
     grid-template-columns: repeat(4, 1fr);
     margin-top: 20px;
     grid-gap: 20px;
+
+    @media (max-width: 600px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: 400px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
+`
+
+const StyledButton = styled(Button)`
+    @media (max-width: 360px) {
+        padding: 0;
+        width: 200px;
+    }
 `
 
 const FullCategories = () => {
     return (
         <Container>
-            <Button href="/addcategory" backgroundColor="normal" width="small">Add category</Button>
+            <StyledButton href="/addcategory" backgroundColor="normal" width="small">Add category</StyledButton>
             <Wrapper>
                 <CategoryBlock href="/category/1" name="a" />
                 <CategoryBlock href="/" name="b" />

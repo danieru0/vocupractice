@@ -17,7 +17,7 @@ interface IButton {
 }
 
 interface ContainerProps {
-    backgroundColor: backgroundColor;
+    backgroundcolor: backgroundColor;
     width: width;
 }
 
@@ -52,7 +52,7 @@ const ContainerButton = styled.button<ContainerProps>`
     font-family: ${({theme}) => theme.secondaryFont};
     font-size: 1.4em;
     border: 1px solid ${({theme}) => theme.buttonBorder};
-    background: ${({backgroundColor}) => handleColorType(backgroundColor)};
+    background: ${({backgroundcolor}) => handleColorType(backgroundcolor)};
     cursor: pointer;
     text-transform: uppercase;
     font-weight: 300;
@@ -63,7 +63,7 @@ const ContainerButton = styled.button<ContainerProps>`
     transition: background .3s;
 
     &:hover {
-        background: ${({backgroundColor}) => darken("0.050", handleColorType(backgroundColor))}
+        background: ${({backgroundcolor}) => darken("0.050", handleColorType(backgroundcolor))}
     }
 `
 
@@ -72,7 +72,7 @@ const ContainerLink = styled(Link)<ContainerProps>`
     font-family: ${({theme}) => theme.secondaryFont};
     font-size: 1.4em;
     border: 1px solid ${({theme}) => theme.buttonBorder};
-    background: ${({backgroundColor}) => handleColorType(backgroundColor)};
+    background: ${({backgroundcolor}) => handleColorType(backgroundcolor)};
     cursor: pointer;
     text-transform: uppercase;
     font-weight: 300;
@@ -87,20 +87,20 @@ const ContainerLink = styled(Link)<ContainerProps>`
     align-items: center;
 
     &:hover {
-        background: ${({backgroundColor}) => darken("0.050", handleColorType(backgroundColor))}
+        background: ${({backgroundcolor}) => darken("0.050", handleColorType(backgroundcolor))}
     }
 `
 
 const Button = ({backgroundColor, children, width, onClick, href, ...props}: IButton) => {
     if (href) {
         return (
-            <ContainerLink backgroundColor={backgroundColor} width={width} to={href} {...props}>
+            <ContainerLink backgroundcolor={backgroundColor} width={width} to={href} {...props}>
                 {children}
             </ContainerLink>
         )
     } else {
         return (
-            <ContainerButton onClick={onClick} backgroundColor={backgroundColor} width={width} {...props}>
+            <ContainerButton onClick={onClick} backgroundcolor={backgroundColor} width={width} {...props}>
                 {children}
             </ContainerButton>
         );
