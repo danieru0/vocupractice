@@ -5,7 +5,7 @@ interface IInput {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     value: string;
-    labelText: string;
+    labelText?: string;
     placeholder?: string;
 }
 
@@ -43,7 +43,7 @@ const ContainerInput = styled.input`
 const Input = ({onChange, onKeyDown, value, labelText, placeholder}: IInput) => {
     return (
         <Container>
-            <LabelText>{labelText}</LabelText>
+            { labelText && <LabelText>{labelText}</LabelText> }
             <ContainerInput placeholder={placeholder} value={value} onKeyDown={onKeyDown} onChange={onChange} />
         </Container>
     );
