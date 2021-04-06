@@ -6,7 +6,7 @@ import { useParams, Redirect, useHistory } from 'react-router-dom';
 import generateRandomId from '../helpers/generateRandomId';
 import findWordById from '../helpers/findWordById';
 
-import { selectVocubulary, createWord, updateWord } from '../features/vocubulary/vocubularySlice';
+import { selectVocabulary, createWord, updateWord } from '../features/vocabulary/vocabularySlice';
 
 import Title from '../components/molecules/Title';
 import AddEditWordForm from '../components/organisms/AddEditWordForm';
@@ -37,7 +37,7 @@ interface editDataInterface {
 const WordForm = ({type}: IWordForm) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const vocubularySelector = useSelector(selectVocubulary);
+    const vocabularySelector = useSelector(selectVocabulary);
     const { wordId, categoryId } = useParams<{ categoryId: string, wordId: string }>();
     const [ editData, setEditData ] = useState<editDataInterface>({
         id: undefined,
@@ -73,18 +73,18 @@ const WordForm = ({type}: IWordForm) => {
     }
 
     useEffect(() => {
-        if (type === 'edit' && vocubularySelector.categories[categoryId]) {
-            const word = findWordById(vocubularySelector.categories[categoryId], wordId);
+        if (type === 'edit' && vocabularySelector.categories[categoryId]) {
+            const word = findWordById(vocabularySelector.categories[categoryId], wordId);
 
             setEditData(word[0]);
         }
-    }, [type, vocubularySelector.categories, wordId, categoryId]);
+    }, [type, vocabularySelector.categories, wordId, categoryId]);
 
-    if (type === 'add' && !vocubularySelector.categories[categoryId]) {
+    if (type === 'add' && !vocabularySelector.categories[categoryId]) {
         return <Redirect to="/" />
     }
 
-    if (type === 'edit' && ( !vocubularySelector.categories[categoryId] || findWordById(vocubularySelector.categories[categoryId], wordId).length === 0) ) {
+    if (type === 'edit' && ( !vocabularySelector.categories[categoryId] || findWordById(vocabularySelector.categories[categoryId], wordId).length === 0) ) {
         return <Redirect to="/" />
     }
 

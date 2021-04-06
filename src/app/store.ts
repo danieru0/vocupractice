@@ -1,11 +1,11 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import counterReducer from '../features/counter/counterSlice';
-import vocubularyReducer from '../features/vocubulary/vocubularySlice';
+import vocabularyReducer from '../features/vocabulary/vocabularySlice';
 
 export const store = configureStore({
 	reducer: {
 		counter: counterReducer,
-		vocubulary: vocubularyReducer
+		vocabulary: vocabularyReducer
 	},
 });
 

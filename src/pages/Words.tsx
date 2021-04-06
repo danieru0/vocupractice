@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useParams, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectVocubulary,deleteCategory } from '../features/vocubulary/vocubularySlice';
+import { selectVocabulary, deleteCategory } from '../features/vocabulary/vocabularySlice';
 
 import Title from '../components/molecules/Title';
 import FullWords from '../components/organisms/FullWords'
@@ -21,7 +21,7 @@ const Container = styled.div`
 
 const Words = () => {
     const dispatch = useDispatch();
-    const vocubularySelector = useSelector(selectVocubulary);
+    const vocabularySelector = useSelector(selectVocabulary);
     const { id } = useParams<{ id: string }>();
 
     const handleCategoryDelete = (categoryId: string) => {
@@ -30,15 +30,15 @@ const Words = () => {
         }
     }
 
-    if (!vocubularySelector.categories[id]) {
+    if (!vocabularySelector.categories[id]) {
         return <Redirect to="/" />
     }
 
     return (
         <Container>
-            <Title title={`Category / ${vocubularySelector.categories[id].name}`} />
+            <Title title={`Category / ${vocabularySelector.categories[id].name}`} />
             {
-                vocubularySelector.categories[id].words.length > 0 ? <FullWords onCategoryDeleteclick={handleCategoryDelete} categoryId={id} /> : <EmptyWords onCategoryDeleteclick={handleCategoryDelete} categoryId={id} />
+                vocabularySelector.categories[id].words.length > 0 ? <FullWords onCategoryDeleteclick={handleCategoryDelete} categoryId={id} /> : <EmptyWords onCategoryDeleteclick={handleCategoryDelete} categoryId={id} />
             }
         </Container>
     );

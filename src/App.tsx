@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEdit, faTrash, faFileImport, faFileExport } from '@fortawesome/free-solid-svg-icons'
+import { useDispatch } from 'react-redux';
+
+import { loadVocabulary } from './features/vocabulary/vocabularySlice';
+
+import { loadFromLocalStorage } from './helpers/localStorageHandler';
 
 import Categories from './pages/Categories';
 import CategoryForm from './pages/CategoryForm';
@@ -25,6 +30,16 @@ const GlobalContainer = styled.div`
 `
 
 function App() {
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		const data = loadFromLocalStorage();
+
+		if (data) {
+			dispatch(loadVocabulary(data));
+		}
+	}, [dispatch])
+
 	return (
 		<GlobalContainer>
 			<Headbar />

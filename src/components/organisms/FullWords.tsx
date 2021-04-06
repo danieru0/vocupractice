@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectVocubulary, deleteWord } from '../../features/vocubulary/vocubularySlice';
+import { selectVocabulary, deleteWord } from '../../features/vocabulary/vocabularySlice';
 
 import Button from '../atoms/Button';
 import WordsTable from '../molecules/WordsTable';
@@ -46,7 +46,7 @@ const StyledButton = styled(Button)`
 
 const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
     const dispatch = useDispatch();
-    const vocubularySelector = useSelector(selectVocubulary);
+    const vocabularySelector = useSelector(selectVocabulary);
     const [selectedWords, setSelectedWords] = useState<{[key: string]: boolean}>({});
 
     const handleWordDelete = (wordId: string) => {
@@ -79,7 +79,7 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
         }
     }
 
-    if (!vocubularySelector.categories[categoryId]) {
+    if (!vocabularySelector.categories[categoryId]) {
         return <Redirect to="/" />
     }
 
@@ -91,7 +91,7 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
                 <StyledButton onClick={handleDeleteSelected} backgroundColor="delete" width="small">Delete selected</StyledButton>
                 <StyledButton onClick={() => onCategoryDeleteclick(categoryId)} backgroundColor="delete" width="small">Delete category</StyledButton>
             </Wrapper>
-            <WordsTable categoryId={categoryId} onWordCheckClick={handleCheckClick} onWordDeleteClick={handleWordDelete} words={vocubularySelector.categories[categoryId].words} />
+            <WordsTable categoryId={categoryId} onWordCheckClick={handleCheckClick} onWordDeleteClick={handleWordDelete} words={vocabularySelector.categories[categoryId].words} />
         </Container>
     );
 };

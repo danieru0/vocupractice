@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Words } from '../../features/vocubulary/vocubularySlice';
+import { Words } from '../../features/vocabulary/vocabularySlice';
 
 import TableRow from '../atoms/TableRow';
 

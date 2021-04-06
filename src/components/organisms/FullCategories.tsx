@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import { selectVocubulary } from '../../features/vocubulary/vocubularySlice';
+import { selectVocabulary } from '../../features/vocabulary/vocabularySlice';
 
 import Button from '../atoms/Button';
 import CategoryBlock from '../atoms/CategoryBlock';
@@ -49,15 +49,15 @@ const StyledButton = styled(Button)`
 `
 
 const FullCategories = () => {
-    const vocubularySelector = useSelector(selectVocubulary);
+    const vocabularySelector = useSelector(selectVocabulary);
 
     return (
         <Container>
             <StyledButton href="/addcategory" backgroundColor="normal" width="small">Add category</StyledButton>
             <Wrapper>
                 {
-                    Object.keys(vocubularySelector.categories).map((item) => {
-                        const category = vocubularySelector.categories[item];
+                    Object.keys(vocabularySelector.categories).map((item) => {
+                        const category = vocabularySelector.categories[item];
 
                         return (
                             <CategoryBlock key={category.id} href={`/category/${category.id}`} name={category.name} />

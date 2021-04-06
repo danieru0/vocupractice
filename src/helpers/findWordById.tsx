@@ -1,4 +1,4 @@
-import { Categories } from '../features/vocubulary/vocubularySlice';
+import { Categories } from '../features/vocabulary/vocabularySlice';
 
 const findWordById = (category: Categories, wordId: string) => {
     if (category.words) {

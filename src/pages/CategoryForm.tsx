@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import { selectVocubulary, createCategory } from '../features/vocubulary/vocubularySlice';
+import { selectVocabulary, createCategory } from '../features/vocabulary/vocabularySlice';
 
 import Title from '../components/molecules/Title';
 import AddCategory from '../components/molecules/AddCategory';
@@ -21,10 +21,10 @@ const Container = styled.div`
 const CategoryForm = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const vocubularySelector = useSelector(selectVocubulary);
+    const vocabularySelector = useSelector(selectVocabulary);
 
     const handleSubmit = (categoryName: string) => {
-        if (vocubularySelector.categories[categoryName]) {
+        if (vocabularySelector.categories[categoryName]) {
             alert('Category already exists');
             return false;
         }

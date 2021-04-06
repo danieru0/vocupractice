@@ -1,7 +1,8 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, current } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
 import generateRandomId from '../../helpers/generateRandomId';
+import { saveToLocalStorage } from '../../helpers/localStorageHandler';
 
 export interface Words {
     id: string;
@@ -17,20 +18,23 @@ export interface Categories {
 }
 
 
-interface VocubularyState {
+interface VocabularyState {
     categories: {
         [key: string]: Categories
     }
 }
 
-export const initialState: VocubularyState = {
+export const initialState: VocabularyState = {
     categories: {}
 }
 
-export const vocubularySlice = createSlice({
+export const vocabularySlice = createSlice({
     name: 'vocubulary',
     initialState,
     reducers: {
+        loadVocabulary: (state, action: PayloadAction<any>) => {
+            state.categories = action.payload;
+        },
         createCategory: (state, action: PayloadAction<string>) => {
             const randomId = generateRandomId();
             
@@ -39,14 +43,20 @@ export const vocubularySlice = createSlice({
                 name: action.payload,
                 words: []
             }
+
+            saveToLocalStorage(current(state).categories);
         },
         createWord: (state, action: PayloadAction<{categoryId: string, word: Words}>) => {
             const { categoryId, word } = action.payload;
 
             state.categories[categoryId].words = [...state.categories[categoryId].words, word];
+
+            saveToLocalStorage(current(state).categories);
         },
         deleteCategory: (state, action: PayloadAction<string>) => {
             delete state.categories[action.payload];
+
+            saveToLocalStorage(current(state).categories);
         },
         deleteWord: (state, action: PayloadAction<{categoryId: string, wordId: string}>) => {
             const { categoryId, wordId } = action.payload;
@@ -54,6 +64,8 @@ export const vocubularySlice = createSlice({
             state.categories[categoryId].words = state.categories[categoryId].words.filter((item) => {
                 return item.id !== wordId;
             });
+
+            saveToLocalStorage(current(state).categories);
         },
         updateWord: (state, action: PayloadAction<{categoryId: string, word: Words}>) => {
             const { categoryId, word } = action.payload;
@@ -65,12 +77,14 @@ export const vocubularySlice = createSlice({
             state.categories[categoryId].words = state.categories[categoryId].words.map((item) => {
                 return item.id === word.id ? selectedWord : item;
             })
+
+            saveToLocalStorage(current(state).categories);
         }
     }
 })
 
-export const { createCategory, createWord, deleteCategory, deleteWord, updateWord } = vocubularySlice.actions;
+export const { loadVocabulary, createCategory, createWord, deleteCategory, deleteWord, updateWord } = vocabularySlice.actions;
 
-export const selectVocubulary = (state: RootState) => state.vocubulary;
+export const selectVocabulary = (state: RootState) => state.vocabulary;
 
-export default vocubularySlice.reducer;
+export default vocabularySlice.reducer;

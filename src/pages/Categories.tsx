@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 
-import { selectVocubulary } from '../features/vocubulary/vocubularySlice';
+import { selectVocabulary } from '../features/vocabulary/vocabularySlice';
 
 import EmptyCategories from '../components/organisms/EmptyCategories';
 import FullCategories from '../components/organisms/FullCategories';
@@ -19,13 +19,13 @@ const Container = styled.div`
 `
 
 const Categories = () => {
-    const vocubularySelector = useSelector(selectVocubulary);
+    const vocabularySelector = useSelector(selectVocabulary);
 
     return (
         <Container>
             <Title />
             {
-                Object.keys(vocubularySelector.categories).length > 0 ? <FullCategories /> : <EmptyCategories />
+                Object.keys(vocabularySelector.categories).length > 0 ? <FullCategories /> : <EmptyCategories />
             }
         </Container>
     )
