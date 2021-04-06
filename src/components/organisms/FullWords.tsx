@@ -91,7 +91,7 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
                 <StyledButton onClick={handleDeleteSelected} backgroundColor="delete" width="small">Delete selected</StyledButton>
                 <StyledButton onClick={() => onCategoryDeleteclick(categoryId)} backgroundColor="delete" width="small">Delete category</StyledButton>
             </Wrapper>
-            <WordsTable onWordCheckClick={handleCheckClick} onWordDeleteClick={handleWordDelete} words={vocubularySelector.categories[categoryId].words} />
+            <WordsTable categoryId={categoryId} onWordCheckClick={handleCheckClick} onWordDeleteClick={handleWordDelete} words={vocubularySelector.categories[categoryId].words} />
         </Container>
     );
 };

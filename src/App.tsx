@@ -35,10 +35,10 @@ function App() {
 				<Route path="/addcategory">
 					<CategoryForm />
 				</Route>
-				<Route exact path="/category/:id/add">
+				<Route exact path="/category/:categoryId/add">
 					<WordForm type="add" />
 				</Route>
-				<Route exact path="/edit/:id">
+				<Route exact path="/category/:categoryId/edit/:wordId">
 					<WordForm type="edit" />
 				</Route>
 				<Route exact path="/category/:id">

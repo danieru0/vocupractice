@@ -11,7 +11,8 @@ interface ITableRow {
     reading?: string;
     onCheckClick: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onDeleteClick: () => void;
-    id: string;
+    wordId: string;
+    categoryId: string;
 }
 
 interface TableDataProps {
@@ -40,7 +41,7 @@ const Wrapper = styled.div`
     justify-content: space-around;
 `
 
-const TableRow = ({word, translation, reading, onCheckClick, onDeleteClick, id}: ITableRow) => {
+const TableRow = ({word, translation, reading, onCheckClick, onDeleteClick, wordId, categoryId}: ITableRow) => {
     return (
         <Tr>
             <Td weight={600}>
@@ -56,7 +57,7 @@ const TableRow = ({word, translation, reading, onCheckClick, onDeleteClick, id}:
             </Td>
             <Td>
                 <Wrapper>
-                    <ButtonIcon href={`/edit/${id}`} iconType="edit" fontColor="edit" />
+                    <ButtonIcon href={`/category/${categoryId}/edit/${wordId}`} iconType="edit" fontColor="edit" />
                     <Checkbox onChange={onCheckClick} />
                     <ButtonIcon onClick={onDeleteClick} iconType="trash" fontColor="delete" />
                 </Wrapper>
