@@ -30,7 +30,7 @@ const WordsTable = ({words}: IWordsTable) => {
                 {
                     words.map((item) => {
                         return (
-                            <TableRow id={item.id} word={item.word} translation={item.translation} reading={item.reading} onCheckClick={handleCheckClick} onDeleteClick={() => alert('delete')} />
+                            <TableRow key={item.id} id={item.id} word={item.word} translation={item.translation} reading={item.reading} onCheckClick={handleCheckClick} onDeleteClick={() => alert('delete')} />
                         )
                     })
                 }

@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useParams, Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { selectVocubulary } from '../../features/vocubulary/vocubularySlice';
 
 import Button from '../atoms/Button';
 import WordsTable from '../molecules/WordsTable';
+
+interface IFullWords {
+    categoryId: string;
+    onCategoryDeleteclick: (categoryId: string) => void;
+}
 
 const Container = styled.div`
     display: flex;
@@ -39,23 +44,23 @@ const StyledButton = styled(Button)`
     }
 `
 
-const FullWords = () => {
+const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
+    const dispatch = useDispatch();
     const vocubularySelector = useSelector(selectVocubulary);
-    const { id } = useParams<{ id: string }>();
 
-    if (!vocubularySelector.categories[id]) {
+    if (!vocubularySelector.categories[categoryId]) {
         return <Redirect to="/" />
     }
 
     return (
         <Container>
             <Wrapper>
-                <StyledButton href={`/practice/${id}`} backgroundColor="normal" width="small">Practice</StyledButton>
-                <StyledButton href={`/category/${id}/add`} backgroundColor="normal" width="small">Add word</StyledButton>
+                <StyledButton href={`/practice/${categoryId}`} backgroundColor="normal" width="small">Practice</StyledButton>
+                <StyledButton href={`/category/${categoryId}/add`} backgroundColor="normal" width="small">Add word</StyledButton>
                 <StyledButton onClick={() => alert('delete selected')} backgroundColor="delete" width="small">Delete selected</StyledButton>
-                <StyledButton onClick={() => alert('delete category')} backgroundColor="delete" width="small">Delete category</StyledButton>
+                <StyledButton onClick={() => onCategoryDeleteclick(categoryId)} backgroundColor="delete" width="small">Delete category</StyledButton>
             </Wrapper>
-            <WordsTable words={vocubularySelector.categories[id].words} />
+            <WordsTable words={vocubularySelector.categories[categoryId].words} />
         </Container>
     );
 };

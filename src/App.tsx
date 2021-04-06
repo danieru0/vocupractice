@@ -44,7 +44,7 @@ function App() {
 				<Route exact path="/category/:id">
 					<Words />
 				</Route>
-				<Route exact path="/practice">
+				<Route exact path="/practice/:id">
 					<Practice />
 				</Route>
 				<Route path="*">

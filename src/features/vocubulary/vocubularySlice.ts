@@ -44,11 +44,14 @@ export const vocubularySlice = createSlice({
             const { categoryId, word } = action.payload;
 
             state.categories[categoryId].words = [...state.categories[categoryId].words, word];
+        },
+        deleteCategory: (state, action: PayloadAction<string>) => {
+            delete state.categories[action.payload];
         }
     }
 })
 
-export const { createCategory, createWord } = vocubularySlice.actions;
+export const { createCategory, createWord, deleteCategory } = vocubularySlice.actions;
 
 export const selectVocubulary = (state: RootState) => state.vocubulary;
 

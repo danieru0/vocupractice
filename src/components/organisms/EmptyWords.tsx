@@ -5,6 +5,7 @@ import Button from '../atoms/Button';
 
 interface IEmptyWords {
     categoryId: string;
+    onCategoryDeleteclick: (categoryId: string) => void;
 }
 
 const Container = styled.div`
@@ -21,16 +22,11 @@ const StyledButton = styled(Button)`
     margin: 0px 10px;
 `
 
-const EmptyWords = ({categoryId}: IEmptyWords) => {
-
-    const handleDeleteClick = () => {
-
-    }
-
+const EmptyWords = ({categoryId, onCategoryDeleteclick}: IEmptyWords) => {
     return (
         <Container>
             <StyledButton href={`/category/${categoryId}/add`} backgroundColor="normal" width="small">Add word</StyledButton>
-            <StyledButton onClick={handleDeleteClick} backgroundColor="delete" width="small">Delete category</StyledButton>
+            <StyledButton onClick={() => onCategoryDeleteclick(categoryId)} backgroundColor="delete" width="small">Delete category</StyledButton>
         </Container>
     );
 };
