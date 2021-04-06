@@ -16,7 +16,7 @@ interface IButtonIcon {
 }
 
 interface ContainerProps {
-    fontColor: fontColor;
+    fontcolor: fontColor;
     fontSize?: string;
 }
 
@@ -35,7 +35,7 @@ const handleFontColorType = (color: fontColor) => {
 }
 
 const ContainerButton = styled.button<ContainerProps>`
-    color: ${({fontColor}) => handleFontColorType(fontColor)};
+    color: ${({fontcolor}) => handleFontColorType(fontcolor)};
     background: none;
     border: none;
     cursor: pointer;
@@ -49,7 +49,7 @@ const ContainerButton = styled.button<ContainerProps>`
 `
 
 const ContainerLink = styled(Link)<ContainerProps>`
-    color: ${({theme, fontColor}) => fontColor === 'edit' ? theme.editColor : theme.deleteColor};
+    color: ${({theme, fontcolor}) => fontcolor === 'edit' ? theme.editColor : theme.deleteColor};
     background: none;
     border: none;
     cursor: pointer;
@@ -65,13 +65,13 @@ const ContainerLink = styled(Link)<ContainerProps>`
 const ButtonIcon = ({fontColor, iconType, onClick, href, fontSize, ...props}: IButtonIcon) => {
     if (href) {
         return (
-            <ContainerLink fontSize={fontSize} to={href} fontColor={fontColor} {...props}>
+            <ContainerLink fontSize={fontSize} to={href} fontcolor={fontColor} {...props}>
                 <FontAwesomeIcon icon={iconType} />
             </ContainerLink>
         )
     } else {
         return (
-            <ContainerButton fontSize={fontSize} onClick={onClick} fontColor={fontColor} {...props}>
+            <ContainerButton fontSize={fontSize} onClick={onClick} fontcolor={fontColor} {...props}>
                 <FontAwesomeIcon icon={iconType} />
             </ContainerButton>
         );

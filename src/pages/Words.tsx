@@ -1,5 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useParams, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import { selectVocubulary } from '../features/vocubulary/vocubularySlice';
 
 import Title from '../components/molecules/Title';
 import FullWords from '../components/organisms/FullWords'
@@ -16,13 +20,18 @@ const Container = styled.div`
 `
 
 const Words = () => {
-    const data = true;
+    const vocubularySelector = useSelector(selectVocubulary);
+    const { id } = useParams<{ id: string }>();
+
+    if (!vocubularySelector.categories[id]) {
+        return <Redirect to="/" />
+    }
 
     return (
         <Container>
-            <Title title="Category / verbs" />
+            <Title title={`Category / ${vocubularySelector.categories[id].name}`} />
             {
-                data ? <FullWords /> : <EmptyWords />
+                vocubularySelector.categories[id].words.length > 0 ? <FullWords /> : <EmptyWords categoryId={id} />
             }
         </Container>
     );

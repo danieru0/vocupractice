@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 
-import findCategoryByName from '../helpers/findCategoryByName';
-
 import { selectVocubulary, createCategory } from '../features/vocubulary/vocubularySlice';
 
 import Title from '../components/molecules/Title';
@@ -26,7 +24,7 @@ const CategoryForm = () => {
     const vocubularySelector = useSelector(selectVocubulary);
 
     const handleSubmit = (categoryName: string) => {
-        if (findCategoryByName(vocubularySelector.categories, categoryName).length !== 0) {
+        if (vocubularySelector.categories[categoryName]) {
             alert('Category already exists');
             return false;
         }

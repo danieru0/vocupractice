@@ -25,7 +25,7 @@ const Categories = () => {
         <Container>
             <Title />
             {
-                vocubularySelector.categories.length > 0 ? <FullCategories /> : <EmptyCategories />
+                Object.keys(vocubularySelector.categories).length > 0 ? <FullCategories /> : <EmptyCategories />
             }
         </Container>
     )

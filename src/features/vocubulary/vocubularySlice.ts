@@ -18,11 +18,13 @@ export interface Categories {
 
 
 interface VocubularyState {
-    categories: Categories[];
+    categories: {
+        [key: string]: Categories
+    }
 }
 
 export const initialState: VocubularyState = {
-    categories: []
+    categories: {}
 }
 
 export const vocubularySlice = createSlice({
@@ -30,16 +32,23 @@ export const vocubularySlice = createSlice({
     initialState,
     reducers: {
         createCategory: (state, action: PayloadAction<string>) => {
-            state.categories = [...state.categories, {
-                id: generateRandomId(),
+            const randomId = generateRandomId();
+            
+            state.categories[randomId] = {
+                id: randomId,
                 name: action.payload,
                 words: []
-            }]
+            }
+        },
+        createWord: (state, action: PayloadAction<{categoryId: string, word: Words}>) => {
+            const { categoryId, word } = action.payload;
+
+            state.categories[categoryId].words = [...state.categories[categoryId].words, word];
         }
     }
 })
 
-export const { createCategory } = vocubularySlice.actions;
+export const { createCategory, createWord } = vocubularySlice.actions;
 
 export const selectVocubulary = (state: RootState) => state.vocubulary;
 

@@ -1,7 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { Words } from '../../features/vocubulary/vocubularySlice';
+
 import TableRow from '../atoms/TableRow';
+
+interface IWordsTable {
+    words: Words[];
+}
 
 const Container = styled.table`
     width: 100%;
@@ -13,8 +19,7 @@ const Container = styled.table`
 
 const Body = styled.tbody``
 
-const WordsTable = () => {
-
+const WordsTable = ({words}: IWordsTable) => {
     const handleCheckClick = (e: React.ChangeEvent<HTMLInputElement>) => {
         
     }
@@ -22,7 +27,13 @@ const WordsTable = () => {
     return (
         <Container>
             <Body>
-                <TableRow id="1" word="食べる" translation="to eat" reading="taberu" onCheckClick={handleCheckClick} onDeleteClick={() => alert('delete')} />
+                {
+                    words.map((item) => {
+                        return (
+                            <TableRow id={item.id} word={item.word} translation={item.translation} reading={item.reading} onCheckClick={handleCheckClick} onDeleteClick={() => alert('delete')} />
+                        )
+                    })
+                }
             </Body>
         </Container>
     );

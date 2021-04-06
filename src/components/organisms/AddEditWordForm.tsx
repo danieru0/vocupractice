@@ -43,7 +43,7 @@ const AddEditWordForm = ({type, id, word, translation, reading, onSubmit}: IAddE
 
         if (wordValue && translationValue) {
             if (wordValue.trim().length !== 0 && translationValue.trim().length !== 0) {
-                onSubmit(e, wordValue, translationValue, reading);
+                onSubmit(e, wordValue, translationValue, readingValue);
             }  
         }
     }

@@ -3,6 +3,10 @@ import styled from 'styled-components';
 
 import Button from '../atoms/Button';
 
+interface IEmptyWords {
+    categoryId: string;
+}
+
 const Container = styled.div`
     width: 100%;
     height: 100%;
@@ -17,7 +21,7 @@ const StyledButton = styled(Button)`
     margin: 0px 10px;
 `
 
-const EmptyWords = () => {
+const EmptyWords = ({categoryId}: IEmptyWords) => {
 
     const handleDeleteClick = () => {
 
@@ -25,7 +29,7 @@ const EmptyWords = () => {
 
     return (
         <Container>
-            <StyledButton href="/category/1/add" backgroundColor="normal" width="small">Add word</StyledButton>
+            <StyledButton href={`/category/${categoryId}/add`} backgroundColor="normal" width="small">Add word</StyledButton>
             <StyledButton onClick={handleDeleteClick} backgroundColor="delete" width="small">Delete category</StyledButton>
         </Container>
     );

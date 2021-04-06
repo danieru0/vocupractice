@@ -56,9 +56,11 @@ const FullCategories = () => {
             <StyledButton href="/addcategory" backgroundColor="normal" width="small">Add category</StyledButton>
             <Wrapper>
                 {
-                    vocubularySelector.categories.map((item) => {
+                    Object.keys(vocubularySelector.categories).map((item) => {
+                        const category = vocubularySelector.categories[item];
+
                         return (
-                            <CategoryBlock href={`/category/${item.id}`} name={item.name} />
+                            <CategoryBlock key={category.id} href={`/category/${category.id}`} name={category.name} />
                         )
                     })
                 }
