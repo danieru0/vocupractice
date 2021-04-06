@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectVocubulary } from '../../features/vocubulary/vocubularySlice';
+import { selectVocubulary, deleteWord } from '../../features/vocubulary/vocubularySlice';
 
 import Button from '../atoms/Button';
 import WordsTable from '../molecules/WordsTable';
@@ -48,6 +48,15 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
     const dispatch = useDispatch();
     const vocubularySelector = useSelector(selectVocubulary);
 
+    const handleWordDelete = (wordId: string) => {
+        if (window.confirm('Are you sure you want to delete this word?')) {
+            dispatch(deleteWord({
+                categoryId: categoryId,
+                wordId: wordId
+            }))
+        }
+    }
+
     if (!vocubularySelector.categories[categoryId]) {
         return <Redirect to="/" />
     }
@@ -60,7 +69,7 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
                 <StyledButton onClick={() => alert('delete selected')} backgroundColor="delete" width="small">Delete selected</StyledButton>
                 <StyledButton onClick={() => onCategoryDeleteclick(categoryId)} backgroundColor="delete" width="small">Delete category</StyledButton>
             </Wrapper>
-            <WordsTable words={vocubularySelector.categories[categoryId].words} />
+            <WordsTable onWordDeleteClick={handleWordDelete} words={vocubularySelector.categories[categoryId].words} />
         </Container>
     );
 };
