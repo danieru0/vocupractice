@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -47,6 +47,7 @@ const StyledButton = styled(Button)`
 const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
     const dispatch = useDispatch();
     const vocubularySelector = useSelector(selectVocubulary);
+    const [selectedWords, setSelectedWords] = useState<{[key: string]: boolean}>({});
 
     const handleWordDelete = (wordId: string) => {
         if (window.confirm('Are you sure you want to delete this word?')) {
@@ -54,6 +55,27 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
                 categoryId: categoryId,
                 wordId: wordId
             }))
+        }
+    }
+
+    const handleCheckClick = (wordId: string, checked: boolean) => {
+        setSelectedWords({...selectedWords, [wordId]: checked});
+    }
+
+    const handleDeleteSelected = () => {
+        if (window.confirm('Are you sure you want to delete all selected words?')) {
+            Object.keys(selectedWords).map((id) => {
+                const isChecked = selectedWords[id];
+
+                if (!isChecked) {
+                    return false;
+                }
+
+                return dispatch(deleteWord({
+                    categoryId: categoryId,
+                    wordId: id
+                }))
+            })
         }
     }
 
@@ -66,10 +88,10 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
             <Wrapper>
                 <StyledButton href={`/practice/${categoryId}`} backgroundColor="normal" width="small">Practice</StyledButton>
                 <StyledButton href={`/category/${categoryId}/add`} backgroundColor="normal" width="small">Add word</StyledButton>
-                <StyledButton onClick={() => alert('delete selected')} backgroundColor="delete" width="small">Delete selected</StyledButton>
+                <StyledButton onClick={handleDeleteSelected} backgroundColor="delete" width="small">Delete selected</StyledButton>
                 <StyledButton onClick={() => onCategoryDeleteclick(categoryId)} backgroundColor="delete" width="small">Delete category</StyledButton>
             </Wrapper>
-            <WordsTable onWordDeleteClick={handleWordDelete} words={vocubularySelector.categories[categoryId].words} />
+            <WordsTable onWordCheckClick={handleCheckClick} onWordDeleteClick={handleWordDelete} words={vocubularySelector.categories[categoryId].words} />
         </Container>
     );
 };

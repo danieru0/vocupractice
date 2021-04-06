@@ -8,6 +8,8 @@ import TableRow from '../atoms/TableRow';
 interface IWordsTable {
     words: Words[];
     onWordDeleteClick: (wordId: string) => void;
+    onWordCheckClick: (wordId: string, checked: boolean) => void;
+
 }
 
 const Container = styled.table`
@@ -20,18 +22,14 @@ const Container = styled.table`
 
 const Body = styled.tbody``
 
-const WordsTable = ({words, onWordDeleteClick}: IWordsTable) => {
-    const handleCheckClick = (e: React.ChangeEvent<HTMLInputElement>) => {
-        
-    }
-
+const WordsTable = ({words, onWordDeleteClick, onWordCheckClick}: IWordsTable) => {
     return (
         <Container>
             <Body>
                 {
                     words.map((item) => {
                         return (
-                            <TableRow key={item.id} id={item.id} word={item.word} translation={item.translation} reading={item.reading} onCheckClick={handleCheckClick} onDeleteClick={() => onWordDeleteClick(item.id)} />
+                            <TableRow key={item.id} id={item.id} word={item.word} translation={item.translation} reading={item.reading} onCheckClick={(e) => onWordCheckClick(item.id, e.target.checked)} onDeleteClick={() => onWordDeleteClick(item.id)} />
                         )
                     })
                 }
