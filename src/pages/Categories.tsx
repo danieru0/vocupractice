@@ -1,5 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
+
+import { selectVocubulary } from '../features/vocubulary/vocubularySlice';
 
 import EmptyCategories from '../components/organisms/EmptyCategories';
 import FullCategories from '../components/organisms/FullCategories';
@@ -16,13 +19,13 @@ const Container = styled.div`
 `
 
 const Categories = () => {
-    const data = true;
+    const vocubularySelector = useSelector(selectVocubulary);
 
     return (
         <Container>
             <Title />
             {
-                data ? <FullCategories /> : <EmptyCategories />
+                vocubularySelector.categories.length > 0 ? <FullCategories /> : <EmptyCategories />
             }
         </Container>
     )

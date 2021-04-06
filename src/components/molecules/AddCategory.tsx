@@ -4,6 +4,10 @@ import styled from 'styled-components';
 import Input from '../atoms/Input';
 import Button from '../atoms/Button';
 
+interface IAddCategory {
+    onSubmit: (categoryName: string) => void;
+}
+
 const Container = styled.form`
     display: flex;
     flex-direction: column;
@@ -14,7 +18,7 @@ const Container = styled.form`
     align-items: center;
 `
 
-const AddCategory = () => {
+const AddCategory = ({onSubmit}: IAddCategory) => {
     const [categoryName, setCategoryName] = useState('');
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,7 +27,10 @@ const AddCategory = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        alert(categoryName);
+        
+        if (categoryName.trim().length > 0) {
+            onSubmit(categoryName);
+        }
     }
 
     return (
