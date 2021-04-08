@@ -33,7 +33,7 @@ function App() {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		const data = loadFromLocalStorage();
+		const data = loadFromLocalStorage('vocupractice');
 
 		if (data) {
 			dispatch(loadVocabulary(data));

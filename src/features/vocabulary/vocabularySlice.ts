@@ -44,19 +44,19 @@ export const vocabularySlice = createSlice({
                 words: []
             }
 
-            saveToLocalStorage(current(state).categories);
+            saveToLocalStorage('vocupractice', current(state).categories);
         },
         createWord: (state, action: PayloadAction<{categoryId: string, word: Words}>) => {
             const { categoryId, word } = action.payload;
 
             state.categories[categoryId].words = [...state.categories[categoryId].words, word];
 
-            saveToLocalStorage(current(state).categories);
+            saveToLocalStorage('vocupractice', current(state).categories);
         },
         deleteCategory: (state, action: PayloadAction<string>) => {
             delete state.categories[action.payload];
 
-            saveToLocalStorage(current(state).categories);
+            saveToLocalStorage('vocupractice', current(state).categories);
         },
         deleteWord: (state, action: PayloadAction<{categoryId: string, wordId: string}>) => {
             const { categoryId, wordId } = action.payload;
@@ -65,7 +65,7 @@ export const vocabularySlice = createSlice({
                 return item.id !== wordId;
             });
 
-            saveToLocalStorage(current(state).categories);
+            saveToLocalStorage('vocupractice', current(state).categories);
         },
         updateWord: (state, action: PayloadAction<{categoryId: string, word: Words}>) => {
             const { categoryId, word } = action.payload;
@@ -78,7 +78,7 @@ export const vocabularySlice = createSlice({
                 return item.id === word.id ? selectedWord : item;
             })
 
-            saveToLocalStorage(current(state).categories);
+            saveToLocalStorage('vocupractice', current(state).categories);
         }
     }
 })

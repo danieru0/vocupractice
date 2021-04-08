@@ -7,6 +7,7 @@ interface IInput {
     value: string;
     labelText?: string;
     placeholder?: string;
+    [key: string]: any;
 }
 
 const Container = styled.label`
@@ -40,9 +41,9 @@ const ContainerInput = styled.input`
     }
 `
 
-const Input = ({onChange, onKeyDown, value, labelText, placeholder}: IInput) => {
+const Input = ({onChange, onKeyDown, value, labelText, placeholder, ...props}: IInput) => {
     return (
-        <Container>
+        <Container {...props}>
             { labelText && <LabelText>{labelText}</LabelText> }
             <ContainerInput placeholder={placeholder} value={value} onKeyDown={onKeyDown} onChange={onChange} />
         </Container>

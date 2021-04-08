@@ -79,7 +79,7 @@ const ImportExportBtns = () => {
                         })
 
                         dispatch(loadVocabulary(json));
-                        saveToLocalStorage(json);
+                        saveToLocalStorage('vocupractice', json);
 
                     } catch (error) {
                         alert('The uploaded file is invalid!');
