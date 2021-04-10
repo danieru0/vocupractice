@@ -25,6 +25,17 @@ const Tr = styled.tr`
     &:hover {
         background: ${({theme}) => lighten(0.05, theme.primary)};
     }
+
+    @media (max-width: 430px) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        aling-items: center;
+        margin: 10px 0px;
+        height: auto;
+        background: ${({theme}) => lighten(0.05, theme.primary)};
+        padding: 10px;
+    }
 `;
 
 const Td = styled.td<TableDataProps>`
@@ -32,6 +43,14 @@ const Td = styled.td<TableDataProps>`
 
     &:first-child {
         padding-left: 20px;
+    }
+
+    @media (max-width: 430px) {
+        text-align: center;
+        
+        &:first-child {
+            padding-left: 0;
+        }
     }
 `
 

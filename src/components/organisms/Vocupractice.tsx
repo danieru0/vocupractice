@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import { selectVocupractice, loadVocupractice, setType, setReading, loadRandomWordFromCategory, setWord } from '../../features/vocupractice/vocupracticeSlice';
+import { selectVocupractice, loadVocupractice, setType, setReading, loadRandomWordFromCategory, loadRandomWordFromMultipleCategories, setWord } from '../../features/vocupractice/vocupracticeSlice';
 
 import Button from '../atoms/Button';
 import Input from '../atoms/Input';
@@ -86,15 +86,23 @@ const Vocupractice = () => {
     const readingInputRef = useRef<HTMLInputElement>(null);
     const translationInputRef = useRef<HTMLInputElement>(null);
 
+    const initNewWord = useCallback(() => {
+        if (vocupracticeSelector.categoryId !== '') {
+            dispatch(loadRandomWordFromCategory(vocupracticeSelector.categoryId));
+        } else {
+            dispatch(loadRandomWordFromMultipleCategories(vocupracticeSelector.selectedCategoriesId));
+        }
+    }, [dispatch, vocupracticeSelector.categoryId, vocupracticeSelector.selectedCategoriesId]);
+
     useEffect(() => {
         dispatch(loadVocupractice());
 
-        dispatch(loadRandomWordFromCategory(vocupracticeSelector.categoryId));
+        initNewWord();
 
         return () => {
             dispatch(setWord(null));
         }
-    }, [dispatch, vocupracticeSelector.categoryId])
+    }, [dispatch, vocupracticeSelector.categoryId, vocupracticeSelector.selectedCategoriesId, initNewWord])
 
     useEffect(() => {
         if (translationCorrect === 'true' && readingCorrect === 'true') {
@@ -132,7 +140,7 @@ const Vocupractice = () => {
             }
 
             if (vocupracticeSelector.type === 'both' && e.key !== 'Tab') {
-                readingInputRef.current!.focus();
+                readingInputRef.current && readingInputRef.current.focus();
             }
         }
     }
@@ -188,7 +196,7 @@ const Vocupractice = () => {
     const handleNextClick = () => {
         resetWord();
 
-        dispatch(loadRandomWordFromCategory(vocupracticeSelector.categoryId));
+        initNewWord();
     }
 
     const handleAnswerClick = () => {
@@ -204,7 +212,8 @@ const Vocupractice = () => {
         if (e.key === 'Enter' && allCorrect) {
             resetWord();
 
-            dispatch(loadRandomWordFromCategory(vocupracticeSelector.categoryId));
+            initNewWord();
+
             translationInputRef.current!.focus();
         }
     }
@@ -219,7 +228,7 @@ const Vocupractice = () => {
         dispatch(setReading(e.target.checked));
     }
 
-    if (!vocupracticeSelector.categoryId) {
+    if (vocupracticeSelector.categoryId === '' && vocupracticeSelector.selectedCategoriesId.length === 0) {
         return <Redirect to="/" />
     }
 

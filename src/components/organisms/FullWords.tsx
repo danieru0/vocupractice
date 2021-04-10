@@ -37,6 +37,10 @@ const Wrapper = styled.div`
         grid-template-columns: repeat(2, 1fr);
         grid-gap: 20px;
     }
+
+    @media (max-width: 430px) {
+        grid-template-columns: repeat(1, 1fr);
+    }
 `
 
 const StyledButton = styled(Button)`

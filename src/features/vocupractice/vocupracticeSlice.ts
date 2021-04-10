@@ -45,6 +45,11 @@ export const vocupracticeSlice = createSlice({
         },
         setCategoryId: (state, action: PayloadAction<string>) => {
             state.categoryId = action.payload;
+            state.selectedCategoriesId = [];
+        },
+        setSelectedCategoriesId: (state, action: PayloadAction<string[]>) => {
+            state.selectedCategoriesId = action.payload;
+            state.categoryId = '';
         },
         setWord: (state, action: PayloadAction<Words | null>) => {
             state.word = action.payload;
@@ -65,7 +70,27 @@ export const loadRandomWordFromCategory = (category: string): AppThunk => (dispa
     dispatch(setWord(words[randomKey]))
 }
 
-export const { loadVocupractice, setType, setReading, setCategoryId, setWord } = vocupracticeSlice.actions;
+export const loadRandomWordFromMultipleCategories = (categoriesId: string[]): AppThunk => (dispatch, getState) => {
+    const vocubularyCategories = getState().vocabulary.categories;
+
+    let randomCategoryKey = Math.floor(Math.random() * categoriesId.length);
+    let randomCategory = vocubularyCategories[categoriesId[randomCategoryKey]];
+
+    if (!randomCategory) {
+        return false;
+    }
+
+    while (randomCategory.words.length === 0) {
+        randomCategoryKey = Math.floor(Math.random() * categoriesId.length);
+        randomCategory = vocubularyCategories[categoriesId[randomCategoryKey]];
+    }
+
+    const randomWordKey = Math.floor(Math.random() * randomCategory.words.length);
+
+    dispatch(setWord(randomCategory.words[randomWordKey]));
+}
+
+export const { loadVocupractice, setType, setReading, setSelectedCategoriesId, setCategoryId, setWord } = vocupracticeSlice.actions;
 
 export const selectVocupractice = (state: RootState) => state.vocupractice;
 
