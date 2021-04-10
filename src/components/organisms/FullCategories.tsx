@@ -77,6 +77,21 @@ const FullCategories = () => {
     const vocabularySelector = useSelector(selectVocabulary);
 
     const handlePracticeAllClick = () => {
+        let isAnyCategoryEmpty: string[] = [];
+        Object.keys(vocabularySelector.categories).forEach((item) => {
+            const category = vocabularySelector.categories[item];
+
+            if (category.words.length === 0) {
+                isAnyCategoryEmpty.push(category.id);
+                return false;
+            } 
+        })
+
+        if (isAnyCategoryEmpty.length === Object.keys(vocabularySelector.categories).length) {
+            alert('All your categories are empty!');
+            return false;
+        }
+
         dispatch(setSelectedCategoriesId(Object.keys(vocabularySelector.categories)));
     
         history.push('/practice');
