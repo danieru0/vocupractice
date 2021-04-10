@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { selectVocabulary, deleteWord } from '../../features/vocabulary/vocabularySlice';
+import { setCategoryId } from '../../features/vocupractice/vocupracticeSlice';
 
 import Button from '../atoms/Button';
 import WordsTable from '../molecules/WordsTable';
@@ -46,6 +47,7 @@ const StyledButton = styled(Button)`
 
 const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const vocabularySelector = useSelector(selectVocabulary);
     const [selectedWords, setSelectedWords] = useState<{[key: string]: boolean}>({});
 
@@ -79,6 +81,12 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
         }
     }
 
+    const handlePracticeClick = () => {
+        dispatch(setCategoryId(categoryId));
+
+        history.push('/practice');
+    }
+
     if (!vocabularySelector.categories[categoryId]) {
         return <Redirect to="/" />
     }
@@ -86,7 +94,7 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
     return (
         <Container>
             <Wrapper>
-                <StyledButton href={`/practice/${categoryId}`} backgroundColor="normal" width="small">Practice</StyledButton>
+                <StyledButton onClick={handlePracticeClick} backgroundColor="normal" width="small">Practice</StyledButton>
                 <StyledButton href={`/category/${categoryId}/add`} backgroundColor="normal" width="small">Add word</StyledButton>
                 <StyledButton onClick={handleDeleteSelected} backgroundColor="delete" width="small">Delete selected</StyledButton>
                 <StyledButton onClick={() => onCategoryDeleteclick(categoryId)} backgroundColor="delete" width="small">Delete category</StyledButton>

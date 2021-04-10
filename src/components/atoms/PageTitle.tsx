@@ -21,6 +21,8 @@ const Title = styled.span<TitleProps>`
     margin: 0;
     text-transform: uppercase;
     user-select: none;
+    text-align: center;
+    display: block;
 `
 
 const PageTitle = ({size, children, ...props}: IPageTitle) => {

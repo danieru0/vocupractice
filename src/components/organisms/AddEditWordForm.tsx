@@ -50,9 +50,9 @@ const AddEditWordForm = ({type, id, word, translation, reading, onSubmit}: IAddE
 
     return (
         <Container onSubmit={handleSubmit}>
-            <Input value={wordValue} labelText="Word" onChange={(e) => setWordValue(e.target.value)} />
-            <Input value={translationValue} labelText="Translation" onChange={(e) => setTranslationValue(e.target.value)} />
-            <Input value={readingValue} placeholder="Leave empty if not needed" labelText="Reading" onChange={(e) => setReadingValue(e.target.value)} />
+            <Input value={wordValue} labelText="Word" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWordValue(e.target.value)} />
+            <Input value={translationValue} labelText="Translation" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTranslationValue(e.target.value)} />
+            <Input value={readingValue} placeholder="Leave empty if not needed" labelText="Reading" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReadingValue(e.target.value)} />
             <Button backgroundColor="normal" width="small">{`${type} word`}</Button>
         </Container>
     );

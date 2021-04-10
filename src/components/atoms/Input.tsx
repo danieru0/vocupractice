@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 
 interface IInput {
@@ -41,13 +41,14 @@ const ContainerInput = styled.input`
     }
 `
 
-const Input = ({onChange, onKeyDown, value, labelText, placeholder, ...props}: IInput) => {
+const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
+    const { onChange, onKeyDown, value, labelText, placeholder, ...restProps } = props;
     return (
-        <Container {...props}>
+        <Container {...restProps}>
             { labelText && <LabelText>{labelText}</LabelText> }
-            <ContainerInput placeholder={placeholder} value={value} onKeyDown={onKeyDown} onChange={onChange} />
+            <ContainerInput ref={ref} placeholder={placeholder} value={value} onKeyDown={onKeyDown} onChange={onChange} />
         </Container>
-    );
-};
+    )
+})
 
 export default Input;
