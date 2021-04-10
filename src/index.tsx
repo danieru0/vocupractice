@@ -5,7 +5,7 @@ import App from './App';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { theme } from './theme/theme';
 import GlobalStyles from './theme/GlobalStyles';
@@ -15,9 +15,9 @@ ReactDOM.render(
     	<Provider store={store}>
 			<ThemeProvider theme={theme}>
 				<GlobalStyles />
-				<BrowserRouter basename={process.env.PUBLIC_URL}>
+				<HashRouter>
       				<App />
-				</BrowserRouter>
+				</HashRouter>
 			</ThemeProvider>
     	</Provider>
   	</React.StrictMode>,
