@@ -3,6 +3,7 @@ import { RootState } from '../../app/store';
 
 import generateRandomId from '../../helpers/generateRandomId';
 import { saveToLocalStorage } from '../../helpers/localStorageHandler';
+import showNotification from '../../helpers/showNotification';
 
 export interface Words {
     id: string;
@@ -45,6 +46,8 @@ export const vocabularySlice = createSlice({
             }
 
             saveToLocalStorage('vocupractice', current(state).categories);
+
+            showNotification('Success', 'Category has been created!', 'success');
         },
         createWord: (state, action: PayloadAction<{categoryId: string, word: Words}>) => {
             const { categoryId, word } = action.payload;
@@ -52,20 +55,29 @@ export const vocabularySlice = createSlice({
             state.categories[categoryId].words = [...state.categories[categoryId].words, word];
 
             saveToLocalStorage('vocupractice', current(state).categories);
+
+            showNotification('Success', 'Word has been added!', 'success');
         },
         deleteCategory: (state, action: PayloadAction<string>) => {
             delete state.categories[action.payload];
 
             saveToLocalStorage('vocupractice', current(state).categories);
+
+            showNotification('Success', 'Category has been deleted!', 'success');
         },
-        deleteWord: (state, action: PayloadAction<{categoryId: string, wordId: string}>) => {
-            const { categoryId, wordId } = action.payload;
+        deleteWord: (state, action: PayloadAction<{categoryId: string, wordId: string, notification: boolean}>) => {
+            const { categoryId, wordId, notification } = action.payload;
 
             state.categories[categoryId].words = state.categories[categoryId].words.filter((item) => {
                 return item.id !== wordId;
             });
 
             saveToLocalStorage('vocupractice', current(state).categories);
+
+            if (notification) {
+                showNotification('Success', 'Word has been deleted!', 'success');
+            }
+            
         },
         updateWord: (state, action: PayloadAction<{categoryId: string, word: Words}>) => {
             const { categoryId, word } = action.payload;
@@ -79,6 +91,8 @@ export const vocabularySlice = createSlice({
             })
 
             saveToLocalStorage('vocupractice', current(state).categories);
+
+            showNotification('Success', 'Word has been updated!', 'success');
         }
     }
 })

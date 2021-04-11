@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import { selectVocabulary, loadVocabulary } from '../../features/vocabulary/vocabularySlice';
 import { saveToLocalStorage } from '../../helpers/localStorageHandler';
+import showNotification from '../../helpers/showNotification';
 
 import Button from '../atoms/Button';
 import ButtonIcon from '../atoms/ButtonIcon';
@@ -45,6 +46,7 @@ const ImportExportBtns = () => {
         element.href = URL.createObjectURL(file);
         element.download = 'vocupractice.txt';
         element.click();
+        showNotification('Success', 'Your data has been exported', 'success');
     }
 
     const handleFileImport = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -80,14 +82,14 @@ const ImportExportBtns = () => {
 
                         dispatch(loadVocabulary(json));
                         saveToLocalStorage('vocupractice', json);
-
+                        showNotification('Success', 'Data has been imported!', 'success');
                     } catch (error) {
-                        alert('The uploaded file is invalid!');
+                        showNotification('Error', 'This is not a valid vocupractice file!', 'danger');
                         inputFileRef.current!.value = '';
                     }
                 }
             }
-            reader.readAsText(file);
+            file && reader.readAsText(file);
         }
 
     }

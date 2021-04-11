@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faEdit, faTrash, faFileImport, faFileExport } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux';
+import ReactNotification from 'react-notifications-component'
+import 'react-notifications-component/dist/theme.css'
 
 import { loadVocabulary } from './features/vocabulary/vocabularySlice';
 
@@ -41,32 +43,35 @@ function App() {
 	}, [dispatch])
 
 	return (
-		<GlobalContainer>
-			<Headbar />
-			<Switch>
-				<Route exact path="/">
-					<Categories />
-				</Route>
-				<Route path="/addcategory">
-					<CategoryForm />
-				</Route>
-				<Route exact path="/category/:categoryId/add">
-					<WordForm type="add" />
-				</Route>
-				<Route exact path="/category/:categoryId/edit/:wordId">
-					<WordForm type="edit" />
-				</Route>
-				<Route exact path="/category/:id">
-					<Words />
-				</Route>
-				<Route exact path="/practice">
-					<Practice />
-				</Route>
-				<Route path="*">
-					<NoFound />
-				</Route>
-			</Switch>
-		</GlobalContainer>
+		<>
+			<ReactNotification />
+			<GlobalContainer>
+				<Headbar />
+				<Switch>
+					<Route exact path="/">
+						<Categories />
+					</Route>
+					<Route path="/addcategory">
+						<CategoryForm />
+					</Route>
+					<Route exact path="/category/:categoryId/add">
+						<WordForm type="add" />
+					</Route>
+					<Route exact path="/category/:categoryId/edit/:wordId">
+						<WordForm type="edit" />
+					</Route>
+					<Route exact path="/category/:id">
+						<Words />
+					</Route>
+					<Route exact path="/practice">
+						<Practice />
+					</Route>
+					<Route path="*">
+						<NoFound />
+					</Route>
+				</Switch>
+			</GlobalContainer>
+		</>
   	);
 }
 
