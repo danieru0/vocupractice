@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { Helmet } from "react-helmet";
 
 import { selectVocabulary } from '../features/vocabulary/vocabularySlice';
 
@@ -23,6 +24,9 @@ const Categories = () => {
 
     return (
         <Container>
+            <Helmet>
+                <title>Vocupractice</title>
+            </Helmet>
             <Title />
             {
                 Object.keys(vocabularySelector.categories).length > 0 ? <FullCategories /> : <EmptyCategories />

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Redirect, useHistory } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 import generateRandomId from '../helpers/generateRandomId';
 import findWordById from '../helpers/findWordById';
@@ -90,6 +91,9 @@ const WordForm = ({type}: IWordForm) => {
 
     return (
         <Container>
+            <Helmet>
+                <title>{type.charAt(0).toUpperCase() + type.slice(1)} word - Vocupractice</title>
+            </Helmet>
             <Title title={`${type.toUpperCase()} word`} />
             {
                 type === 'add' ? (

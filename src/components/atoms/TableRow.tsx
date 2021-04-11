@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { lighten } from 'polished';
+import ReactTooltip from 'react-tooltip';
 
 import Checkbox from './Checkbox';
 import ButtonIcon from './ButtonIcon';
@@ -76,11 +77,12 @@ const TableRow = ({word, translation, reading, onCheckClick, onDeleteClick, word
             </Td>
             <Td>
                 <Wrapper>
-                    <ButtonIcon href={`/category/${categoryId}/edit/${wordId}`} iconType="edit" fontColor="edit" />
+                    <ButtonIcon data-tip="Edit word" href={`/category/${categoryId}/edit/${wordId}`} iconType="edit" fontColor="edit" />
                     <Checkbox onChange={onCheckClick} />
-                    <ButtonIcon onClick={onDeleteClick} iconType="trash" fontColor="delete" />
+                    <ButtonIcon data-tip="Remove word" onClick={onDeleteClick} iconType="trash" fontColor="delete" />
                 </Wrapper>
             </Td>
+            <ReactTooltip effect="solid" />
         </Tr>
     );
 };

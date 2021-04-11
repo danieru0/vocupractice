@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 import { selectVocabulary, createCategory } from '../features/vocabulary/vocabularySlice';
 
@@ -35,6 +36,9 @@ const CategoryForm = () => {
 
     return (
         <Container>
+            <Helmet>
+                <title>Add category - Vocupractice</title>
+            </Helmet>
             <Title title="Add category" />
             <AddCategory onSubmit={handleSubmit} />
         </Container>

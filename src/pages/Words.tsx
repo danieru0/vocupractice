@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useParams, Redirect } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { Helmet } from "react-helmet";
 
 import { selectVocabulary, deleteCategory } from '../features/vocabulary/vocabularySlice';
 
@@ -36,6 +37,9 @@ const Words = () => {
 
     return (
         <Container>
+            <Helmet>
+                <title>{vocabularySelector.categories[id].name.charAt(0).toUpperCase() + vocabularySelector.categories[id].name.slice(1)} - Vocupractice</title>
+            </Helmet>
             <Title title={`Category / ${vocabularySelector.categories[id].name}`} />
             {
                 vocabularySelector.categories[id].words.length > 0 ? <FullWords onCategoryDeleteclick={handleCategoryDelete} categoryId={id} /> : <EmptyWords onCategoryDeleteclick={handleCategoryDelete} categoryId={id} />
