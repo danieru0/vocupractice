@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faEdit, faTrash, faFileImport, faFileExport } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrash, faFileImport, faFileExport, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { useDispatch } from 'react-redux';
 import ReactNotification from 'react-notifications-component'
 import 'react-notifications-component/dist/theme.css'
@@ -19,7 +19,7 @@ import Practice from './pages/Practice';
 import NoFound from './pages/NoFound';
 import Headbar from './components/organisms/Headbar';
 
-library.add(faEdit, faTrash, faFileExport, faFileImport);
+library.add(faEdit, faTrash, faFileExport, faFileImport, faSearch);
 
 const GlobalContainer = styled.div`
 	width: 100%;

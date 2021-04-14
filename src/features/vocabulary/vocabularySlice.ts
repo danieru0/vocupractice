@@ -22,11 +22,13 @@ export interface Categories {
 interface VocabularyState {
     categories: {
         [key: string]: Categories
-    }
+    },
+    searchWords: Words[];
 }
 
 export const initialState: VocabularyState = {
-    categories: {}
+    categories: {},
+    searchWords: []
 }
 
 export const vocabularySlice = createSlice({
@@ -93,11 +95,25 @@ export const vocabularySlice = createSlice({
             saveToLocalStorage('vocupractice', current(state).categories);
 
             showNotification('Success', 'Word has been updated!', 'success');
+        },
+        searchWords: (state, action: PayloadAction<{query: string, categoryId: string}>) => {
+            const { categoryId, query } = action.payload;
+
+            if (query.trim().length === 0) {
+                state.searchWords = [];
+            } else {
+                const foundWords = state.categories[categoryId].words.filter((item) => {
+                    return item.word.includes(query) || item.translation.includes(query) || item.reading?.includes(query);
+                });
+    
+                state.searchWords = foundWords;
+            }
+
         }
     }
 })
 
-export const { loadVocabulary, createCategory, createWord, deleteCategory, deleteWord, updateWord } = vocabularySlice.actions;
+export const { loadVocabulary, createCategory, createWord, deleteCategory, deleteWord, updateWord, searchWords } = vocabularySlice.actions;
 
 export const selectVocabulary = (state: RootState) => state.vocabulary;
 

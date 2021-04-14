@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import styled from 'styled-components';
 
 import { Words } from '../../features/vocabulary/vocabularySlice';
@@ -23,19 +23,22 @@ const Container = styled.table`
 const Body = styled.tbody``
 
 const WordsTable = ({words, categoryId, onWordDeleteClick, onWordCheckClick}: IWordsTable) => {
-    return (
-        <Container>
-            <Body>
-                {
-                    words.map((item) => {
-                        return (
-                            <TableRow key={item.id} categoryId={categoryId} wordId={item.id} word={item.word} translation={item.translation} reading={item.reading} onCheckClick={(e) => onWordCheckClick(item.id, e.target.checked)} onDeleteClick={() => onWordDeleteClick(item.id)} />
-                        )
-                    })
-                }
-            </Body>
-        </Container>
-    );
+    return useMemo(() => {
+        return (
+            <Container>
+                <Body>
+                    {
+                        words.map((item) => {
+                            return (
+                                <TableRow key={item.id} categoryId={categoryId} wordId={item.id} word={item.word} translation={item.translation} reading={item.reading} onCheckClick={(e) => onWordCheckClick(item.id, e.target.checked)} onDeleteClick={() => onWordDeleteClick(item.id)} />
+                            )
+                        })
+                    }
+                </Body>
+            </Container>
+        );
+    }, [words, categoryId, onWordCheckClick, onWordDeleteClick]);
+
 };
 
 export default WordsTable;

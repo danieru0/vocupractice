@@ -1,5 +1,6 @@
 import React, { forwardRef } from 'react';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface IInput {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -7,30 +8,42 @@ interface IInput {
     value: string;
     labelText?: string;
     placeholder?: string;
+    iconType?: any;
     [key: string]: any;
 }
 
-const Container = styled.label`
+interface ContainerProps {
+    label?: string;
+}
+
+interface InputProps {
+    iconType?: string;
+}
+
+const Container = styled.label<ContainerProps>`
     display: flex;
     flex-direction: column;
     color: ${({theme}) => theme.fontColor};
     font-family: ${({theme}) => theme.primaryFont};
     text-transform: uppercase;
     font-size: 1.4em;
+    width: 280px;
+    height: ${({label}) => label ? '82px' : '50px'};
+    position: relative;
 `
 
 const LabelText = styled.span`
     padding-left: 5px;
 `
 
-const ContainerInput = styled.input`
+const ContainerInput = styled.input<InputProps>`
     background: ${({theme}) => theme.inputBackground};
     color: ${({theme}) => theme.fontColor};
     font-family: ${({theme}) => theme.secondaryFont};
     border: none;
-    width: 280px;
-    height: 50px;
-    padding: 0px 10px;
+    width: 100%;
+    height: 100%;
+    padding: ${({iconType}) => iconType ? '0px 60px' : '0px 10px'};
     font-size: 1em;
     outline: none;
     
@@ -41,12 +54,19 @@ const ContainerInput = styled.input`
     }
 `
 
+const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
+    position: absolute;
+    left: 15px;
+    top: 12px;
+`
+
 const Input = forwardRef<HTMLInputElement, IInput>((props, ref) => {
-    const { onChange, onKeyDown, value, labelText, placeholder, ...restProps } = props;
+    const { onChange, onKeyDown, value, labelText, placeholder, iconType, ...restProps } = props;
     return (
-        <Container {...restProps}>
+        <Container label={labelText} {...restProps}>
             { labelText && <LabelText>{labelText}</LabelText> }
-            <ContainerInput ref={ref} placeholder={placeholder} value={value} onKeyDown={onKeyDown} onChange={onChange} />
+            { iconType && <StyledFontAwesomeIcon icon={iconType} /> }
+            <ContainerInput iconType={iconType} ref={ref} placeholder={placeholder} value={value} onKeyDown={onKeyDown} onChange={onChange} />
         </Container>
     )
 })
