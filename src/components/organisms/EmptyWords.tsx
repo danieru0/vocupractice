@@ -16,10 +16,18 @@ const Container = styled.div`
     align-items: center;
     margin-bottom: auto;
     margin-top: auto;
+
+    @media (max-width: 825px) {
+        flex-direction: column;
+    }
 `
 
 const StyledButton = styled(Button)`
     margin: 0px 10px;
+
+    @media (max-width: 825px) {
+        margin: 10px 0px;
+    }    
 `
 
 const EmptyWords = ({categoryId, onCategoryDeleteclick}: IEmptyWords) => {

@@ -17,13 +17,13 @@ const Container = styled.div`
     margin-bottom: auto;
     margin-top: auto;
 
-    @media (max-width: 600px) {
-        width: 90%;
-    }
-
-    @media (max-width: 400px) {
+    @media (max-width: 825px) {
         justify-content: center;
         align-items: center;
+    }
+
+    @media (max-width: 600px) {
+        width: 90%;
     }
 `
 

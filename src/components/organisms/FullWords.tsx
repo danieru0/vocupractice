@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Redirect, useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHotkeys } from 'react-hotkeys-hook';
+import ReactTooltip from 'react-tooltip';
 
 import showNotification from '../../helpers/showNotification';
 
@@ -46,7 +48,7 @@ const Wrapper = styled.div`
 `
 
 const StyledButton = styled(Button)`
-    @media (max-width: 700px) {
+    @media (max-width: 717px) {
         font-size: 1em;
     }
 `
@@ -56,6 +58,13 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
     const history = useHistory();
     const vocabularySelector = useSelector(selectVocabulary);
     const [selectedWords, setSelectedWords] = useState<{[key: string]: boolean}>({});
+
+    useHotkeys('ctrl+a', (e) => handleAddWordShortcut(e));
+
+    const handleAddWordShortcut = (e: KeyboardEvent) => {
+        e.preventDefault();
+        history.push(`/category/${categoryId}/add`);
+    }
 
     const handleWordDelete = (wordId: string) => {
         if (window.confirm('Are you sure you want to delete this word?')) {
@@ -103,9 +112,10 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
 
     return (
         <Container>
+            <ReactTooltip effect="solid" />
             <Wrapper>
                 <StyledButton onClick={handlePracticeClick} backgroundColor="normal" width="small">Practice</StyledButton>
-                <StyledButton href={`/category/${categoryId}/add`} backgroundColor="normal" width="small">Add word</StyledButton>
+                <StyledButton data-tip="(ctrl + a)" href={`/category/${categoryId}/add`} backgroundColor="normal" width="small">Add word</StyledButton>
                 <StyledButton onClick={() => onCategoryDeleteclick(categoryId)} backgroundColor="delete" width="small">Delete category</StyledButton>
                 <StyledButton onClick={handleDeleteSelected} backgroundColor="delete" width="small">Delete selected</StyledButton>
             </Wrapper>

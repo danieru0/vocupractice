@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import Button from '../atoms/Button';
@@ -29,6 +29,13 @@ const AddEditWordForm = ({type, id, word, translation, reading, onSubmit}: IAddE
     const [wordValue, setWordValue] = useState('');
     const [translationValue, setTranslationValue] = useState('');
     const [readingValue, setReadingValue] = useState('');
+    const InputWordRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (InputWordRef && InputWordRef.current) {
+            InputWordRef.current.focus();
+        }
+    }, [InputWordRef]);
 
     useEffect(() => {
         if (id) {
@@ -50,7 +57,7 @@ const AddEditWordForm = ({type, id, word, translation, reading, onSubmit}: IAddE
 
     return (
         <Container onSubmit={handleSubmit}>
-            <Input value={wordValue} labelText="Word" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWordValue(e.target.value)} />
+            <Input ref={InputWordRef} value={wordValue} labelText="Word" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWordValue(e.target.value)} />
             <Input value={translationValue} labelText="Translation" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTranslationValue(e.target.value)} />
             <Input value={readingValue} placeholder="Leave empty if not needed" labelText="Reading" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReadingValue(e.target.value)} />
             <Button backgroundColor="normal" width="small">{`${type} word`}</Button>

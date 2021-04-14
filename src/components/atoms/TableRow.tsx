@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { lighten } from 'polished';
-import ReactTooltip from 'react-tooltip';
 
 import Checkbox from './Checkbox';
 import ButtonIcon from './ButtonIcon';
@@ -27,7 +26,7 @@ const Tr = styled.tr`
         background: ${({theme}) => lighten(0.05, theme.primary)};
     }
 
-    @media (max-width: 430px) {
+    @media (max-width: 717px) {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -46,7 +45,7 @@ const Td = styled.td<TableDataProps>`
         padding-left: 20px;
     }
 
-    @media (max-width: 430px) {
+    @media (max-width: 717px) {
         text-align: center;
         
         &:first-child {
@@ -77,12 +76,11 @@ const TableRow = ({word, translation, reading, onCheckClick, onDeleteClick, word
             </Td>
             <Td>
                 <Wrapper>
-                    <ButtonIcon data-tip="Edit word" href={`/category/${categoryId}/edit/${wordId}`} iconType="edit" fontColor="edit" />
+                    <ButtonIcon data-tip="edit word" href={`/category/${categoryId}/edit/${wordId}`} iconType="edit" fontColor="edit" />
                     <Checkbox onChange={onCheckClick} />
-                    <ButtonIcon data-tip="Remove word" onClick={onDeleteClick} iconType="trash" fontColor="delete" />
+                    <ButtonIcon data-tip="remove word" onClick={onDeleteClick} iconType="trash" fontColor="delete" />
                 </Wrapper>
             </Td>
-            <ReactTooltip effect="solid" />
         </Tr>
     );
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
 
 import Logo from '../molecules/Logo';
 import ImportExportBtsn from '../molecules/ImportExportBtns';
@@ -21,6 +22,7 @@ const Container = styled.div`
 const Headbar = () => {
     return (
         <Container>
+            <ReactTooltip effect="solid" />
             <Logo />
             <ImportExportBtsn />
         </Container>

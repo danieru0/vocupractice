@@ -1,8 +1,7 @@
 import React, { useRef } from 'react';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive'
-import { useSelector, useDispatch } from 'react-redux';
-import ReactTooltip from 'react-tooltip';
+import { useSelector, useDispatch } from 'react-redux'
 
 import { selectVocabulary, loadVocabulary } from '../../features/vocabulary/vocabularySlice';
 import { saveToLocalStorage } from '../../helpers/localStorageHandler';
@@ -92,7 +91,6 @@ const ImportExportBtns = () => {
             }
             file && reader.readAsText(file);
         }
-
     }
 
     return (
@@ -101,8 +99,8 @@ const ImportExportBtns = () => {
             {
                 isMobile ? (
                     <>
-                        <StyledButtonIcon data-tip="Import" fontSize="1.5em" fontColor="import" iconType="file-import" onClick={handleImportClick}/>
-                        <StyledButtonIcon data-tip="Export" fontSize="1.5em" fontColor="export" iconType="file-export" onClick={handleExportClick}/>
+                        <StyledButtonIcon data-tip="import" fontSize="1.5em" fontColor="import" iconType="file-import" onClick={handleImportClick}/>
+                        <StyledButtonIcon data-tip="export" fontSize="1.5em" fontColor="export" iconType="file-export" onClick={handleExportClick}/>
                     </>
                 ) : (
                     <>
@@ -111,7 +109,6 @@ const ImportExportBtns = () => {
                     </>
                 )
             }
-            <ReactTooltip effect="solid" />
         </Container>
     );
 };

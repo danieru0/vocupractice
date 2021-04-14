@@ -30,7 +30,7 @@ const StyledLink = styled(Link)`
         background: ${({theme}) => darken(0.020, theme.primary)};
     }
 
-    @media (max-width: 400px) {
+    @media (max-width: 825px) {
         margin: auto;
     }
 `
