@@ -18,6 +18,7 @@ const Container = styled.div`
     align-items: center;
     flex-direction: column;
     flex: 1;
+    padding-top: 30px;
 `
 
 const Words = () => {
@@ -40,7 +41,7 @@ const Words = () => {
             <Helmet>
                 <title>{vocabularySelector.categories[id].name.charAt(0).toUpperCase() + vocabularySelector.categories[id].name.slice(1)} - Vocupractice</title>
             </Helmet>
-            <Title title={`Category / ${vocabularySelector.categories[id].name}`} />
+            <Title length={vocabularySelector.categories[id].words.length && vocabularySelector.categories[id].words.length} title={`Category / ${vocabularySelector.categories[id].name}`} />
             {
                 vocabularySelector.categories[id].words.length > 0 ? <FullWords onCategoryDeleteclick={handleCategoryDelete} categoryId={id} /> : <EmptyWords onCategoryDeleteclick={handleCategoryDelete} categoryId={id} />
             }

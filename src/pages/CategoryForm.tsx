@@ -17,6 +17,7 @@ const Container = styled.div`
     align-items: center;
     flex-direction: column;
     flex: 1;
+    padding-top: 30px;
 `
 
 const CategoryForm = () => {
