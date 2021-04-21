@@ -17,14 +17,13 @@ const Container = styled.div<ContainerProps>`
     opacity: 0;
     visibility: 0;
     z-index: 99;
-    transition: opacity .3s ease-in-out;
+    transition: opacity .3s ease-in-out, background .3s;
     background: ${({theme}) => theme.secondary};
     border: 1px solid ${({theme}) => theme.buttonBorder};
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: background .3s;
 
     ${({shouldShow}) => shouldShow && css`
         opacity: 1;
