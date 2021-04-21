@@ -66,8 +66,8 @@ const ScrollToTop = () => {
     }, [])
 
     return (
-        <Container shouldShow={shouldShowButton}>
-            <ButtonIcon onClick={handleClick} fontSize="1.8em" iconType="arrow-up" fontColor="white" />
+        <Container onClick={handleClick} shouldShow={shouldShowButton}>
+            <ButtonIcon fontSize="1.8em" iconType="arrow-up" fontColor="white" />
         </Container>
     );
 };
