@@ -15,6 +15,7 @@ import { setCategoryId } from '../../features/vocupractice/vocupracticeSlice';
 import Button from '../atoms/Button';
 import WordsTable from '../molecules/WordsTable';
 import Input from '../atoms/Input';
+import ScrollToTop from '../molecules/ScrollToTop';
 
 interface IFullWords {
     categoryId: string;
@@ -27,6 +28,7 @@ const Container = styled.div`
     align-items: flex-start;
     margin-bottom: auto;
     width: 900px;
+    position: relative;
 
     @media (max-width: 930px) {
         width: 90%;
@@ -131,6 +133,7 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
     return (
         <Container>
             <ReactTooltip effect="solid" />
+            <ScrollToTop />
             <Wrapper>
                 <StyledButton onClick={handlePracticeClick} backgroundColor="normal" width="small">Practice</StyledButton>
                 <StyledButton data-tip="(ctrl + a)" href={`/category/${categoryId}/add`} backgroundColor="normal" width="small">Add word</StyledButton>

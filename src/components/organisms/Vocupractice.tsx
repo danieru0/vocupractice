@@ -5,6 +5,8 @@ import { Redirect } from 'react-router-dom';
 
 import { selectVocupractice, loadVocupractice, setType, setReading, loadRandomWordFromCategory, loadRandomWordFromMultipleCategories, setWord } from '../../features/vocupractice/vocupracticeSlice';
 
+import ifEqual from '../../helpers/ifEqual';
+
 import Button from '../atoms/Button';
 import Input from '../atoms/Input';
 import Checkbox from '../atoms/Checkbox';
@@ -125,12 +127,12 @@ const Vocupractice = () => {
     const handleTranslationCheck = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (vocupracticeSelector.word && (e.key === 'Enter' || e.key === 'Tab')) {
             if (!vocupracticeSelector.word.reading) {
-                if (translationValue === vocupracticeSelector.word.translation) {
+                if (ifEqual(translationValue, vocupracticeSelector.word.translation)) {
                     setTranslationCorrect('true');
                     setReadingCorrect('true');
                 }
             } else {
-                if (translationValue === vocupracticeSelector.word.translation) {
+                if (ifEqual(translationValue, vocupracticeSelector.word.translation)) {
                     setTranslationCorrect('true');
 
                     if (vocupracticeSelector.type !== 'both') {
@@ -148,11 +150,11 @@ const Vocupractice = () => {
     const handleReadingCheck = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (vocupracticeSelector.word && e.key === 'Enter') {
             if (vocupracticeSelector.word.reading) {
-                if (vocupracticeSelector.word.reading === readingValue) {
+                if (ifEqual(readingValue, vocupracticeSelector.word.reading)) {
                     setReadingCorrect('true');
 
                     if (translationCorrect !== 'true') {
-                        if (vocupracticeSelector.word.translation === translationValue) {
+                        if (ifEqual(translationValue, vocupracticeSelector.word.translation)) {
                             setTranslationCorrect('true');
                         }
                     }
@@ -167,13 +169,13 @@ const Vocupractice = () => {
 
     const handleCheckClick = () => {
         if (vocupracticeSelector.word) {
-            if (translationValue === vocupracticeSelector.word.translation) {
+            if (ifEqual(translationValue, vocupracticeSelector.word.translation)) {
                 setTranslationCorrect('true');
             }
 
             if (vocupracticeSelector.word.reading) {
                 if (vocupracticeSelector.type === 'reading' || vocupracticeSelector.type === 'both') {
-                    if (readingValue === vocupracticeSelector.word.reading) {
+                    if (ifEqual(readingValue, vocupracticeSelector.word.reading)) {
                         setReadingCorrect('true');
                     }
                 } else {
@@ -234,9 +236,7 @@ const Vocupractice = () => {
 
     if (!vocupracticeSelector.word) {
         return (
-            <Container>
-
-            </Container>
+            <Container />
         )
     }
     

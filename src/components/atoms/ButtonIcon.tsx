@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Link } from 'react-router-dom';
 import { theme } from '../../theme/theme';
 
-type fontColor = 'edit' | 'delete' | 'export' | 'import' ;
+type fontColor = 'edit' | 'delete' | 'export' | 'import' | 'white' ;
 
 interface IButtonIcon {
     fontColor: fontColor;
@@ -30,6 +30,8 @@ const handleFontColorType = (color: fontColor) => {
             return theme.editColor;
         case "delete":
             return theme.deleteColor;
+        case "white":
+            return theme.fontColor;
         default: return theme.secondary;
     }
 }
