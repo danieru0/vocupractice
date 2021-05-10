@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { lighten } from 'polished';
 
 import Checkbox from './Checkbox';
@@ -9,14 +9,17 @@ interface ITableRow {
     word: string;
     translation: string;
     reading?: string;
+    important?: boolean;
     onCheckClick: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onDeleteClick: () => void;
+    onMenuClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
     wordId: string;
     categoryId: string;
 }
 
 interface TableDataProps {
     weight?: number;
+    important?: boolean;
 }
 
 const Tr = styled.tr`
@@ -52,6 +55,10 @@ const Td = styled.td<TableDataProps>`
             padding-left: 0;
         }
     }
+
+    ${({important}) => important && css`
+        color: red;
+    `}
 `
 
 const Wrapper = styled.div`
@@ -60,16 +67,16 @@ const Wrapper = styled.div`
     justify-content: space-around;
 `
 
-const TableRow = ({word, translation, reading, onCheckClick, onDeleteClick, wordId, categoryId}: ITableRow) => {
+const TableRow = ({word, translation, reading, important, onCheckClick, onDeleteClick, onMenuClick, wordId, categoryId}: ITableRow) => {
     return (
         <Tr>
-            <Td weight={600}>
+            <Td important={important} weight={600}>
                 {word}
             </Td>
-            <Td>
+            <Td important={important}>
                 {translation}
             </Td>
-            <Td>
+            <Td important={important}>
                 {
                     reading ? reading : '\u00a0\u00a0'
                 }
@@ -79,6 +86,7 @@ const TableRow = ({word, translation, reading, onCheckClick, onDeleteClick, word
                     <ButtonIcon data-tip="edit word" href={`/category/${categoryId}/edit/${wordId}`} iconType="edit" fontColor="edit" />
                     <Checkbox onChange={onCheckClick} />
                     <ButtonIcon data-tip="remove word" onClick={onDeleteClick} iconType="trash" fontColor="delete" />
+                    <ButtonIcon onClick={onMenuClick} iconType="caret-down" fontColor="normal" />
                 </Wrapper>
             </Td>
         </Tr>

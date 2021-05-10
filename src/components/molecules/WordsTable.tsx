@@ -10,6 +10,7 @@ interface IWordsTable {
     categoryId: string;
     onWordDeleteClick: (wordId: string) => void;
     onWordCheckClick: (wordId: string, checked: boolean) => void;
+    onMenuClick: (e: React.MouseEvent<HTMLButtonElement>, word: Words) => void;
 }
 
 const Container = styled.table`
@@ -22,7 +23,7 @@ const Container = styled.table`
 
 const Body = styled.tbody``
 
-const WordsTable = ({words, categoryId, onWordDeleteClick, onWordCheckClick}: IWordsTable) => {
+const WordsTable = ({words, categoryId, onWordDeleteClick, onWordCheckClick, onMenuClick}: IWordsTable) => {
     return useMemo(() => {
         return (
             <Container>
@@ -30,14 +31,14 @@ const WordsTable = ({words, categoryId, onWordDeleteClick, onWordCheckClick}: IW
                     {
                         words.map((item) => {
                             return (
-                                <TableRow key={item.id} categoryId={categoryId} wordId={item.id} word={item.word} translation={item.translation} reading={item.reading} onCheckClick={(e) => onWordCheckClick(item.id, e.target.checked)} onDeleteClick={() => onWordDeleteClick(item.id)} />
+                                <TableRow key={item.id} important={item.important} categoryId={categoryId} wordId={item.id} word={item.word} translation={item.translation} reading={item.reading} onMenuClick={(e) => onMenuClick(e, item)} onCheckClick={(e) => onWordCheckClick(item.id, e.target.checked)} onDeleteClick={() => onWordDeleteClick(item.id)} />
                             )
                         })
                     }
                 </Body>
             </Container>
         );
-    }, [words, categoryId, onWordCheckClick, onWordDeleteClick]);
+    }, [words, categoryId, onWordCheckClick, onWordDeleteClick, onMenuClick]);
 
 };
 

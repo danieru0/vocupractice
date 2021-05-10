@@ -34,6 +34,7 @@ interface editDataInterface {
     word?: string;
     translation?: string;
     reading?: string;
+    important?: boolean;
 }
 
 const WordForm = ({type}: IWordForm) => {
@@ -45,7 +46,8 @@ const WordForm = ({type}: IWordForm) => {
         id: undefined,
         word: undefined,
         translation: undefined,
-        reading: undefined
+        reading: undefined,
+        important: undefined,
     })
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>, word: string, translation: string, reading: string | undefined) => {
@@ -56,7 +58,8 @@ const WordForm = ({type}: IWordForm) => {
                     id: generateRandomId(),
                     word: word,
                     translation: translation,
-                    reading: reading
+                    reading: reading,
+                    important: false
                 }
             }))
         } else {
@@ -66,7 +69,8 @@ const WordForm = ({type}: IWordForm) => {
                     id: editData.id!,
                     word: word,
                     translation: translation,
-                    reading: reading
+                    reading: reading,
+                    important: editData.important!
                 }
             }))
         }

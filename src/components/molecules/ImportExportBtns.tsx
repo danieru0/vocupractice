@@ -74,6 +74,10 @@ const ImportExportBtns = () => {
                                 const word = category.words[item];
                                 const wordKeys = Object.keys(word);
 
+                                if (wordKeys.indexOf('important') !== -1) {
+                                    wordKeys.splice(wordKeys.indexOf('important', 1));
+                                }
+
                                 if (JSON.stringify(wordKeys) !== JSON.stringify(wordKeysToCompare)) {
                                     throw Error('Not vocupractice file');
                                 }

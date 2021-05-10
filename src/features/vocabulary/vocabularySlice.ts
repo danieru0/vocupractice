@@ -10,6 +10,7 @@ export interface Words {
     word: string;
     translation: string;
     reading?: string;
+    important?: boolean;
 }
 
 export interface Categories {
@@ -17,7 +18,6 @@ export interface Categories {
     name: string;
     words: Words[]
 }
-
 
 interface VocabularyState {
     categories: {
@@ -108,12 +108,18 @@ export const vocabularySlice = createSlice({
     
                 state.searchWords = foundWords;
             }
+        },
+        setImportant: (state, action: PayloadAction<{categoryId: string, wordId: string, important: boolean}>) => {
+            const { categoryId, wordId, important } = action.payload;
 
+            state.categories[categoryId].words = state.categories[categoryId].words.map((item) => {
+                return item.id === wordId ? {...item, important: important} : item;
+            })
         }
     }
 })
 
-export const { loadVocabulary, createCategory, createWord, deleteCategory, deleteWord, updateWord, searchWords } = vocabularySlice.actions;
+export const { loadVocabulary, createCategory, createWord, deleteCategory, deleteWord, updateWord, searchWords, setImportant } = vocabularySlice.actions;
 
 export const selectVocabulary = (state: RootState) => state.vocabulary;
 
