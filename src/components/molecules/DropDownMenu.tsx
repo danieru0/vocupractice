@@ -9,6 +9,7 @@ interface IDropDownMenuProps {
     top: number;
     word: Words | undefined;
     onImportantClick: (wordId: string) => void;
+    onMoveClick: (word: Words | undefined) => void;
 }
 
 interface ContainerProps {
@@ -52,7 +53,7 @@ const Button = styled.button`
     }
 `
 
-const DropDownMenu = ({left, top, word, onImportantClick}: IDropDownMenuProps) => {
+const DropDownMenu = ({left, top, word, onImportantClick, onMoveClick}: IDropDownMenuProps) => {
     return (
         <Container left={left} top={top}>
             <List>
@@ -60,7 +61,7 @@ const DropDownMenu = ({left, top, word, onImportantClick}: IDropDownMenuProps) =
                     <Button onClick={() => onImportantClick(word!.id)}>{word!.important ? "Not important" : "Important" }</Button>
                 </ListItem>
                 <ListItem>
-                    <Button>MOVE</Button>
+                    <Button onClick={() => onMoveClick(word)}>Move</Button>
                 </ListItem>
             </List>
         </Container>

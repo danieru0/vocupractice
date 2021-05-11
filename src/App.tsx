@@ -18,6 +18,7 @@ import Words from './pages/Words';
 import Practice from './pages/Practice';
 import NoFound from './pages/NoFound';
 import Headbar from './components/organisms/Headbar';
+import ModalContainer from './components/organisms/ModalContainer';
 
 library.add(faEdit, faTrash, faFileExport, faFileImport, faSearch, faArrowUp, faCaretDown);
 
@@ -47,6 +48,7 @@ function App() {
 			<ReactNotification />
 			<GlobalContainer>
 				<Headbar />
+				<ModalContainer />
 				<Switch>
 					<Route exact path="/">
 						<Categories />

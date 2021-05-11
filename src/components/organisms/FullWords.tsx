@@ -6,6 +6,7 @@ import { useHotkeys } from 'react-hotkeys-hook';
 import ReactTooltip from 'react-tooltip';
 
 import { Words } from '../../features/vocabulary/vocabularySlice';
+import { setModalActiveState, setWord } from '../../features/modal/modalSlice';
 
 import useAfterUserType from '../../hooks/useAfterUserType';
 
@@ -150,6 +151,15 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
         }))
     }
 
+    const handleMoveClick = (word: Words | undefined) => {
+        dispatch(setWord(word));
+        dispatch(setModalActiveState({
+            active: true,
+            type: 'move',
+            currentCategoryId: categoryId
+        }))
+    }
+
     const handlePracticeClick = () => {
         dispatch(setCategoryId(categoryId));
 
@@ -192,7 +202,7 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
             </Wrapper>
             <StyledInput iconType="search" onChange={handleSearchChange} value={searchValue} />
             <WordsTable categoryId={categoryId} onMenuClick={handleMenuClick} onWordCheckClick={handleCheckClick} onWordDeleteClick={handleWordDelete} words={vocabularySelector.searchWords.length === 0 ? vocabularySelector.categories[categoryId].words : vocabularySelector.searchWords} />
-            {dropDownMenuShow && <DropDownMenu onImportantClick={handleImportantClick} word={dropdownMenuWord} left={dropdownMenuLeft} top={dropdownMenuTop} />}
+            {dropDownMenuShow && <DropDownMenu onMoveClick={handleMoveClick} onImportantClick={handleImportantClick} word={dropdownMenuWord} left={dropdownMenuLeft} top={dropdownMenuTop} />}
         </Container>
     );
 };

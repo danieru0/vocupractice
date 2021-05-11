@@ -1,11 +1,13 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import vocabularyReducer from '../features/vocabulary/vocabularySlice';
 import vocupracticeReducer from '../features/vocupractice/vocupracticeSlice';
+import modalReducer from '../features/modal/modalSlice';
 
 export const store = configureStore({
 	reducer: {
 		vocabulary: vocabularyReducer,
-		vocupractice: vocupracticeReducer
+		vocupractice: vocupracticeReducer,
+		modal: modalReducer
 	},
 });
 

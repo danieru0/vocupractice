@@ -127,11 +127,24 @@ export const vocabularySlice = createSlice({
             })
 
             saveToLocalStorage('vocupractice', current(state).categories);
+        },
+        moveWord: (state, action: PayloadAction<{categoryIdFrom: string, categoryIdTo: string, word: Words}>) => {
+            const { categoryIdFrom, categoryIdTo, word } = action.payload;
+
+            state.categories[categoryIdFrom].words = state.categories[categoryIdFrom].words.filter((item) => {
+                return item.id !== word.id
+            });
+
+            state.categories[categoryIdTo].words.push(word);
+
+            saveToLocalStorage('vocupractice', current(state).categories);
+
+            showNotification('Success', 'Word has been moved!', 'success');
         }
     }
 })
 
-export const { loadVocabulary, createCategory, createWord, deleteCategory, deleteWord, updateWord, searchWords, setImportant } = vocabularySlice.actions;
+export const { loadVocabulary, createCategory, createWord, deleteCategory, deleteWord, updateWord, searchWords, setImportant, moveWord } = vocabularySlice.actions;
 
 export const selectVocabulary = (state: RootState) => state.vocabulary;
 
