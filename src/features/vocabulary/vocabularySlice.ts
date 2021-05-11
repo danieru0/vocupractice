@@ -113,8 +113,20 @@ export const vocabularySlice = createSlice({
             const { categoryId, wordId, important } = action.payload;
 
             state.categories[categoryId].words = state.categories[categoryId].words.map((item) => {
+                if (item.id === wordId) {
+                    if (important) {
+                        state.categories['importantWords'].words.push(item);
+                    } else {
+                        state.categories['importantWords'].words = state.categories['importantWords'].words.filter((importantItem) => {
+                            return importantItem.id !== wordId;
+                        })
+                    }
+                }
+
                 return item.id === wordId ? {...item, important: important} : item;
             })
+
+            saveToLocalStorage('vocupractice', current(state).categories);
         }
     }
 })

@@ -4,6 +4,7 @@ import styled from 'styled-components';
 interface ICheckbox {
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     label?: string;
+    title?: string;
     checked?: boolean;
 }
 
@@ -22,10 +23,10 @@ const Input = styled.input`
     transform: scale(1.7);
 `
 
-const Checkbox = ({onChange, label, checked}: ICheckbox) => {
+const Checkbox = ({onChange, label, checked, title}: ICheckbox) => {
     if (label) {       
         return (
-            <Container>
+            <Container title={title}>
                 <Input checked={checked} onChange={onChange} type="checkbox" />
                 <Text>{label}</Text>
             </Container>

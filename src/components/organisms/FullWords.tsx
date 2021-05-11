@@ -136,11 +136,10 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
             }
 
             setDropdownMenuLeft(left);
-            setDropdownMenuTop(targetRect.top - containerRef.current.offsetTop + window.scrollY);
+            setDropdownMenuTop(top);
             setDropDownMenuWord(word);
             setDropDownMenuShow(true);
         }
-
     }
 
     const handleImportantClick = (wordId: string) => {

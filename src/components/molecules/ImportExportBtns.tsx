@@ -58,6 +58,7 @@ const ImportExportBtns = () => {
                 if (e.target) {
                     try {
                         const json = JSON.parse(e.target.result as string);
+                        const importantWordsArray: any[] = [];
 
                         const categoriesKeysToCompare = ['id', 'name', 'words'];
                         const wordKeysToCompare = ['id', 'word', 'translation', 'reading'];
@@ -75,6 +76,8 @@ const ImportExportBtns = () => {
                                 const wordKeys = Object.keys(word);
 
                                 if (wordKeys.indexOf('important') !== -1) {
+                                    importantWordsArray.push(word);
+
                                     wordKeys.splice(wordKeys.indexOf('important', 1));
                                 }
 
@@ -83,6 +86,12 @@ const ImportExportBtns = () => {
                                 }
                             })
                         })
+
+                        json['importantWords'] = {
+                            id: 'importantwords',
+                            name: 'important',
+                            words: importantWordsArray
+                        }
 
                         dispatch(loadVocabulary(json));
                         saveToLocalStorage('vocupractice', json);
