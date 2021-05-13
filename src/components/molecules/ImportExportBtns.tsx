@@ -76,7 +76,9 @@ const ImportExportBtns = () => {
                                 const wordKeys = Object.keys(word);
 
                                 if (wordKeys.indexOf('important') !== -1) {
-                                    importantWordsArray.push(word);
+                                    if (word.important === true && word.categoryId) {
+                                        word.important === true && importantWordsArray.push(word);
+                                    }
 
                                     wordKeys.splice(wordKeys.indexOf('important', 1));
                                 }
@@ -92,6 +94,8 @@ const ImportExportBtns = () => {
                             name: 'important',
                             words: importantWordsArray
                         }
+
+                        console.log(importantWordsArray);
 
                         dispatch(loadVocabulary(json));
                         saveToLocalStorage('vocupractice', json);

@@ -11,6 +11,7 @@ export interface Words {
     translation: string;
     reading?: string;
     important?: boolean;
+    categoryId?: string;
 }
 
 export interface Categories {
@@ -112,12 +113,21 @@ export const vocabularySlice = createSlice({
         setImportant: (state, action: PayloadAction<{categoryId: string, wordId: string, important: boolean}>) => {
             const { categoryId, wordId, important } = action.payload;
 
+            if (!state.categories['importantWords']) {
+                state.categories['importantWords'] = {
+                    id: 'importantwords',
+                    name: 'important',
+                    words: []
+                }
+            }
+            
             state.categories[categoryId].words = state.categories[categoryId].words.map((item) => {
                 if (item.id === wordId) {
                     if (important) {
-                        state.categories['importantWords'].words.push(item);
+                        const wordWithImportant = {...item, important: important, categoryId: categoryId};
+                        state.categories['importantWords'].words.push(wordWithImportant);
                     } else {
-                        state.categories['importantWords'].words = state.categories['importantWords'].words.filter((importantItem) => {
+                        state.categories['importantWords'].words = state.categories['importantWords'].words.filter((importantItem) => {                    
                             return importantItem.id !== wordId;
                         })
                     }

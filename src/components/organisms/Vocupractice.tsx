@@ -2,8 +2,10 @@ import React, { useEffect, useState, useRef, useCallback } from 'react';
 import styled, { css } from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
-import { selectVocupractice, loadVocupractice, setType, setReading, loadRandomWordFromCategory, loadRandomWordFromMultipleCategories, setWord } from '../../features/vocupractice/vocupracticeSlice';
+import { selectVocupractice, loadVocupractice, setType, setReading, loadRandomWordFromCategory, loadRandomWordFromMultipleCategories, setWord, setCurrentWordImportant } from '../../features/vocupractice/vocupracticeSlice';
+import { selectVocabulary, setImportant } from '../../features/vocabulary/vocabularySlice';
 
 import ifEqual from '../../helpers/ifEqual';
 
@@ -20,6 +22,10 @@ interface InputProps {
     isCorrect: boolean;
 }
 
+interface WordProps {
+    important: boolean | undefined;
+}
+
 const Container = styled.div`
     display: flex;
     flex-direction: column;
@@ -28,11 +34,25 @@ const Container = styled.div`
     align-items: center;
 `
 
-const Word = styled.span`
+const Word = styled.button<WordProps>`
     font-family: ${({theme}) => theme.secondaryFont};
-    color: ${({theme}) => theme.fontColor};
     font-size: 3em;
     text-align: center;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    ${({important}) => important ? (
+            css`
+                color: red;
+            `
+        ) : (
+            css`
+                color: ${({theme}) => theme.fontColor};
+            `
+        )
+    }
 `
 
 const Reading = styled.span`
@@ -79,6 +99,7 @@ const StyledVocupracticeRadioBtn = styled(VocupracticeRadioBtn)`
 const Vocupractice = () => {
     const dispatch = useDispatch();
     const vocupracticeSelector = useSelector(selectVocupractice);
+    const vocabularySelector = useSelector(selectVocabulary);
     const [translationValue, setTranslationValue] = useState('');
     const [readingValue, setReadingValue] = useState('');
     const [translationCorrect, setTranslationCorrect] = useState('');
@@ -102,7 +123,7 @@ const Vocupractice = () => {
         initNewWord();
 
         return () => {
-            dispatch(setWord(null));
+            dispatch(setWord({word: null, selectedCategoryId: ''}));
         }
     }, [dispatch, vocupracticeSelector.categoryId, vocupracticeSelector.selectedCategoriesId, initNewWord])
 
@@ -187,6 +208,15 @@ const Vocupractice = () => {
         }
     }
 
+    const handleImportantClick = () => {
+        dispatch(setImportant({
+            categoryId: vocupracticeSelector.word?.categoryId ? vocupracticeSelector.word.categoryId : vocupracticeSelector.categoryIdFromSelected ? vocupracticeSelector.categoryIdFromSelected : vocupracticeSelector.categoryId, 
+            important: vocupracticeSelector.word!.important ? !vocupracticeSelector.word!.important : true,
+            wordId: vocupracticeSelector.word!.id
+        }))
+        dispatch(setCurrentWordImportant(vocupracticeSelector.word!.important ? !vocupracticeSelector.word!.important : true))
+    }
+
     const resetWord = () => {
         setTranslationValue('');
         setReadingValue('');
@@ -235,14 +265,19 @@ const Vocupractice = () => {
     }
 
     if (!vocupracticeSelector.word) {
-        return (
-            <Container />
-        )
+        if (vocupracticeSelector.categoryId === 'importantWords' && vocabularySelector.categories['importantWords'].words.length === 0) {
+            return <Redirect to="/" />
+        } else {
+            return (
+                <Container />
+            )
+        }
     }
     
     return (
         <Container onKeyDown={handleVocupracticeKeyEnter}>
-            <Word>{vocupracticeSelector.word.word}</Word>
+            <ReactTooltip effect="solid" />
+            <Word onDoubleClick={handleImportantClick} data-tip={vocupracticeSelector.word.important ? 'Click twice to make this word normal' : 'Click twice to make this word important'} important={vocupracticeSelector.word.important} >{vocupracticeSelector.word.word}</Word>
             {vocupracticeSelector.reading && vocupracticeSelector.word.reading && <Reading>{`(${vocupracticeSelector.word.reading})`}</Reading>}
             {(vocupracticeSelector.type === 'translation' || vocupracticeSelector.type === 'both') ? <StyledInput isCorrect={translationCorrect === 'true' ? true : false} ref={translationInputRef} placeholder="Translation" onKeyDown={handleTranslationCheck} onChange={handleTranslationChange} value={translationValue} /> : ''}
             {(vocupracticeSelector.word.reading && ( vocupracticeSelector.type === 'reading' || vocupracticeSelector.type === 'both') ) ? <StyledInput isCorrect={readingCorrect === 'true' ? true : false} ref={readingInputRef} placeholder="Reading" onKeyDown={handleReadingCheck} onChange={handleReadingChange} value={readingValue} /> : ''}

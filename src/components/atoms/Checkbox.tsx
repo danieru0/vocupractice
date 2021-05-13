@@ -6,6 +6,7 @@ interface ICheckbox {
     label?: string;
     title?: string;
     checked?: boolean;
+    [key: string]: any;
 }
 
 const Container = styled.label`
@@ -23,10 +24,10 @@ const Input = styled.input`
     transform: scale(1.7);
 `
 
-const Checkbox = ({onChange, label, checked, title}: ICheckbox) => {
+const Checkbox = ({onChange, label, checked, title, ...props}: ICheckbox) => {
     if (label) {       
         return (
-            <Container title={title}>
+            <Container title={title} {...props}>
                 <Input checked={checked} onChange={onChange} type="checkbox" />
                 <Text>{label}</Text>
             </Container>

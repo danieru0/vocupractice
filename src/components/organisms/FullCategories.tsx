@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import ReactTooltip from 'react-tooltip';
 
 import { selectVocabulary } from '../../features/vocabulary/vocabularySlice';
 import { setSelectedCategoriesId, setCategoryId } from '../../features/vocupractice/vocupracticeSlice';
@@ -116,10 +117,11 @@ const FullCategories = () => {
 
     return (
         <Container>
+            <ReactTooltip effect="solid" />
             <WrapperButtons>
                 <StyledButton href="/addcategory" backgroundColor="normal" width="small">Add category</StyledButton>
                 <StyledButton onClick={handlePracticeAllClick} backgroundColor="normal" width="small">Practice all</StyledButton>
-                <Checkbox title="Practice all will only use words tagged as important." checked={importantValue} onChange={(e) => setImportantValue(e.target.checked)} label="important" />
+                <Checkbox data-tip="Practice all will only show important words" checked={importantValue} onChange={(e) => setImportantValue(e.target.checked)} label="important" />
             </WrapperButtons>
             <WrapperCategories>
                 {

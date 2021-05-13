@@ -10,6 +10,7 @@ interface VocupracticeState {
     reading: boolean;
     categoryId: string;
     selectedCategoriesId: string[];
+    categoryIdFromSelected: string;
     word: Words | null;
 }
 
@@ -18,6 +19,7 @@ const initialState: VocupracticeState = {
     reading: true,
     categoryId: '',
     selectedCategoriesId: [],
+    categoryIdFromSelected: '',
     word: null
 }
 
@@ -51,8 +53,12 @@ export const vocupracticeSlice = createSlice({
             state.selectedCategoriesId = action.payload;
             state.categoryId = '';
         },
-        setWord: (state, action: PayloadAction<Words | null>) => {
-            state.word = action.payload;
+        setWord: (state, action: PayloadAction<{word: Words | null, selectedCategoryId: string}>) => {
+            state.word = action.payload.word;
+            state.categoryIdFromSelected = action.payload.selectedCategoryId;
+        },
+        setCurrentWordImportant: (state, action: PayloadAction<boolean>) => {
+            state.word!.important = action.payload;
         }
     }
 })
@@ -67,7 +73,7 @@ export const loadRandomWordFromCategory = (category: string): AppThunk => (dispa
     const words = vocubularyCategories[category].words;
     const randomKey = Math.floor(Math.random() * words.length);
 
-    dispatch(setWord(words[randomKey]))
+    dispatch(setWord({word: words[randomKey], selectedCategoryId: ''}));
 }
 
 export const loadRandomWordFromMultipleCategories = (categoriesId: string[]): AppThunk => (dispatch, getState) => {
@@ -87,10 +93,13 @@ export const loadRandomWordFromMultipleCategories = (categoriesId: string[]): Ap
 
     const randomWordKey = Math.floor(Math.random() * randomCategory.words.length);
 
-    dispatch(setWord(randomCategory.words[randomWordKey]));
+    dispatch(setWord({
+        word: randomCategory.words[randomWordKey],
+        selectedCategoryId: randomCategory.id
+    }));
 }
 
-export const { loadVocupractice, setType, setReading, setSelectedCategoriesId, setCategoryId, setWord } = vocupracticeSlice.actions;
+export const { loadVocupractice, setType, setReading, setSelectedCategoriesId, setCategoryId, setWord, setCurrentWordImportant } = vocupracticeSlice.actions;
 
 export const selectVocupractice = (state: RootState) => state.vocupractice;
 
