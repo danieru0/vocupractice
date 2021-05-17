@@ -84,13 +84,13 @@ export const vocabularySlice = createSlice({
         },
         updateWord: (state, action: PayloadAction<{categoryId: string, word: Words}>) => {
             const { categoryId, word } = action.payload;
-
-            const selectedWord = state.categories[categoryId].words.filter((item) => {
-                return item.id === word.id;
-            })[0] = word;
-
+            
             state.categories[categoryId].words = state.categories[categoryId].words.map((item) => {
-                return item.id === word.id ? selectedWord : item;
+                return item.id === word.id ? {...item, ...word} : item;
+            })
+
+            state.categories['importantWords'].words = state.categories['importantWords'].words.map((item) => {
+                return item.id === word.id ? {...item, ...word} : item;
             })
 
             saveToLocalStorage('vocupractice', current(state).categories);
