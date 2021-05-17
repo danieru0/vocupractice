@@ -12,7 +12,7 @@ import useAfterUserType from '../../hooks/useAfterUserType';
 
 import showNotification from '../../helpers/showNotification';
 
-import { selectVocabulary, deleteWord, searchWords, setImportant } from '../../features/vocabulary/vocabularySlice';
+import { selectVocabulary, deleteWord, searchWords, setImportant, setImportantSearched } from '../../features/vocabulary/vocabularySlice';
 import { setCategoryId } from '../../features/vocupractice/vocupracticeSlice';
 
 import Button from '../atoms/Button';
@@ -149,6 +149,13 @@ const FullWords = ({categoryId, onCategoryDeleteclick}: IFullWords) => {
             wordId: wordId,
             important: dropdownMenuWord!.important ? false : true
         }))
+
+        if (vocabularySelector.searchWords.length !== 0) {
+            dispatch(setImportantSearched({
+                wordId: wordId,
+                important: dropdownMenuWord!.important ? false : true
+            }))
+        }
     }
 
     const handleMoveClick = (word: Words | undefined) => {
