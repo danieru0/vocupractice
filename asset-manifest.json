@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/vocupractice/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/vocupractice/static/js/main.fb09c1b1.chunk.js",
-    "main.js.map": "/vocupractice/static/js/main.fb09c1b1.chunk.js.map",
+    "main.js": "/vocupractice/static/js/main.e646beaa.chunk.js",
+    "main.js.map": "/vocupractice/static/js/main.e646beaa.chunk.js.map",
     "runtime-main.js": "/vocupractice/static/js/runtime-main.54c4622d.js",
     "runtime-main.js.map": "/vocupractice/static/js/runtime-main.54c4622d.js.map",
     "static/css/2.d1c75e18.chunk.css": "/vocupractice/static/css/2.d1c75e18.chunk.css",
@@ -18,6 +18,6 @@
     "static/css/2.d1c75e18.chunk.css",
     "static/js/2.1748a2f8.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.fb09c1b1.chunk.js"
+    "static/js/main.e646beaa.chunk.js"
   ]
 }
