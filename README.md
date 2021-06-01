@@ -1,4 +1,4 @@
-![Project image](https://i.ibb.co/f8h5nFG/bub.png)
+![Project image](https://i.ibb.co/swMxyc3/wef.png)
 
 # Vocupractice
 
