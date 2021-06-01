@@ -14,10 +14,12 @@ const Container = styled.label`
     font-family: ${({theme}) => theme.primaryFont};
     text-transform: uppercase;
     font-size: 1.1em;
+    user-select: none;
 ` 
 
 const Text = styled.span`
     margin-left: 5px;
+    text-align: center;
 `
 
 const Input = styled.input`

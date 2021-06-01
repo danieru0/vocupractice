@@ -15,7 +15,7 @@ const StyledLink = styled(Link)`
 
 const Logo = () => {
     const isMobile = useMediaQuery({
-        query: '(max-width: 470px)'
+        query: '(max-width: 645px)'
     });
 
     return (

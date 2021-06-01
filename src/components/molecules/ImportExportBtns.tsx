@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useMediaQuery } from 'react-responsive'
 import { useSelector, useDispatch } from 'react-redux'
@@ -9,9 +9,11 @@ import showNotification from '../../helpers/showNotification';
 
 import Button from '../atoms/Button';
 import ButtonIcon from '../atoms/ButtonIcon';
+import Checkbox from '../atoms/Checkbox';
 
 const Container = styled.div`
     display: flex;
+    align-items: center;
 `
 
 const InputFile = styled.input`
@@ -26,13 +28,24 @@ const StyledButtonIcon = styled(ButtonIcon)`
     margin: 0px 10px;
 `
 
+const StyledCheckbox = styled(Checkbox)`
+    @media (max-width: 540px) {
+        position: absolute;
+        top: 50px;
+        font-size: 1em;
+        right: 10px;
+    }
+`
+
+
 const ImportExportBtns = () => {
     const dispatch = useDispatch();
     const vocabularySelector = useSelector(selectVocabulary);
     const isMobile = useMediaQuery({
-        query: '(max-width: 825px)'
+        query: '(max-width: 950px)'
     });
     const inputFileRef = useRef<HTMLInputElement>(null);
+    const [dontOverrideCheck, setDontOverrideCheck] = useState(false); 
 
     const handleImportClick = () => {
         if (inputFileRef.current) {
@@ -57,7 +70,7 @@ const ImportExportBtns = () => {
             reader.onload = function(e) {
                 if (e.target) {
                     try {
-                        const json = JSON.parse(e.target.result as string);
+                        let json = JSON.parse(e.target.result as string);
                         const importantWordsArray: any[] = [];
 
                         const categoriesKeysToCompare = ['id', 'name', 'words'];
@@ -95,7 +108,9 @@ const ImportExportBtns = () => {
                             words: importantWordsArray
                         }
 
-                        console.log(importantWordsArray);
+                        if (dontOverrideCheck) {
+                            json = {...json, ...vocabularySelector.categories}
+                        }
 
                         dispatch(loadVocabulary(json));
                         saveToLocalStorage('vocupractice', json);
@@ -110,17 +125,23 @@ const ImportExportBtns = () => {
         }
     }
 
+    const handleDontOverRideCheck = () => {
+        setDontOverrideCheck(!dontOverrideCheck);
+    }
+
     return (
         <Container>
             <InputFile onChange={handleFileImport} ref={inputFileRef} type="file" accept=".txt" />
             {
                 isMobile ? (
                     <>
+                        <StyledCheckbox checked={dontOverrideCheck} onChange={handleDontOverRideCheck} label="Don't overwrite" />
                         <StyledButtonIcon data-tip="import" fontSize="1.5em" fontColor="import" iconType="file-import" onClick={handleImportClick}/>
                         <StyledButtonIcon data-tip="export" fontSize="1.5em" fontColor="export" iconType="file-export" onClick={handleExportClick}/>
                     </>
                 ) : (
                     <>
+                        <StyledCheckbox checked={dontOverrideCheck} onChange={handleDontOverRideCheck} label="Don't overwrite" />
                         <StyledButton backgroundColor="import" width="big" onClick={handleImportClick}>Import</StyledButton>
                         <StyledButton backgroundColor="export" width="big" onClick={handleExportClick}>Export</StyledButton>
                     </>

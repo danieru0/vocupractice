@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
@@ -10,6 +10,8 @@ import { setSelectedCategoriesId, setCategoryId } from '../../features/vocupract
 import Button from '../atoms/Button';
 import CategoryBlock from '../atoms/CategoryBlock';
 import Checkbox from '../atoms/Checkbox';
+import ContextMenu from '../molecules/ContextMenu';
+import showNotification from '../../helpers/showNotification';
 
 const Container = styled.div`
     width: 600px;
@@ -82,6 +84,9 @@ const FullCategories = () => {
     const dispatch = useDispatch();
     const vocabularySelector = useSelector(selectVocabulary);
     const [importantValue, setImportantValue] = useState(false);
+    const [contextMenuTop, setContextMenuTop] = useState(0);
+    const [contextMenuLeft, setContextMenuLeft] = useState(0);
+    const [contextMenuCategory, setContextMenuCategory] = useState('');
 
     const handlePracticeAllClick = () => {
         if (importantValue) {
@@ -115,6 +120,38 @@ const FullCategories = () => {
         }
     }
 
+    const handleContextMenuClick = (e: React.MouseEvent<HTMLAnchorElement>, category: string) => {
+        e.preventDefault();
+        setContextMenuCategory(category);
+        setContextMenuLeft(e.pageX);
+        setContextMenuTop(e.pageY);
+    }
+
+    const handleExportClick = (category: string) => {
+        const selectedCategory = {
+            [category]: vocabularySelector.categories[category]
+        }
+        
+        const file = new Blob([JSON.stringify(selectedCategory)], {type: 'text/plain'});
+        const element = document.createElement('a');
+        element.href = URL.createObjectURL(file);
+        element.download = 'vocupractice.txt';
+        element.click();
+        showNotification('Success', 'Your data has been exported', 'success');
+    }
+
+    useEffect(() => {
+        const handleOutsideClick = () => {
+            if (contextMenuCategory) {
+                setContextMenuCategory('');
+            }
+        }
+
+        document.addEventListener('click', handleOutsideClick)
+
+        return () => document.removeEventListener('click', handleOutsideClick);
+    }, [contextMenuCategory]);
+
     return (
         <Container>
             <ReactTooltip effect="solid" />
@@ -133,10 +170,11 @@ const FullCategories = () => {
                         }
 
                         return (
-                            <CategoryBlock key={category.id} href={`/category/${category.id}`} name={category.name} />
+                            <CategoryBlock onContextMenu={(e) => handleContextMenuClick(e, category.id)} key={category.id} href={`/category/${category.id}`} name={category.name} />
                         )
                     })
                 }
+                {contextMenuCategory && <ContextMenu category={contextMenuCategory} left={contextMenuLeft} top={contextMenuTop} onExportClick={handleExportClick} />}
             </WrapperCategories>
         </Container>
     );

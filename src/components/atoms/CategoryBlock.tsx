@@ -6,6 +6,7 @@ import { darken } from 'polished';
 interface ICategoryBlocks {
     name: string;
     href: string;
+    onContextMenu: (e: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const StyledLink = styled(Link)`
@@ -35,9 +36,9 @@ const StyledLink = styled(Link)`
     }
 `
 
-const CategoryBlock = ({name, href}: ICategoryBlocks) => {
+const CategoryBlock = ({name, href, onContextMenu}: ICategoryBlocks) => {
     return (
-        <StyledLink to={href}>
+        <StyledLink onContextMenu={onContextMenu} to={href}>
             {name}
         </StyledLink>
     );
