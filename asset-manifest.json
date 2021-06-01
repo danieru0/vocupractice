@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/vocupractice/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/vocupractice/static/js/main.b668066f.chunk.js",
-    "main.js.map": "/vocupractice/static/js/main.b668066f.chunk.js.map",
+    "main.js": "/vocupractice/static/js/main.2b3d3473.chunk.js",
+    "main.js.map": "/vocupractice/static/js/main.2b3d3473.chunk.js.map",
     "runtime-main.js": "/vocupractice/static/js/runtime-main.54c4622d.js",
     "runtime-main.js.map": "/vocupractice/static/js/runtime-main.54c4622d.js.map",
     "static/css/2.d1c75e18.chunk.css": "/vocupractice/static/css/2.d1c75e18.chunk.css",
-    "static/js/2.b2ca9a98.chunk.js": "/vocupractice/static/js/2.b2ca9a98.chunk.js",
-    "static/js/2.b2ca9a98.chunk.js.map": "/vocupractice/static/js/2.b2ca9a98.chunk.js.map",
+    "static/js/2.ec072ad6.chunk.js": "/vocupractice/static/js/2.ec072ad6.chunk.js",
+    "static/js/2.ec072ad6.chunk.js.map": "/vocupractice/static/js/2.ec072ad6.chunk.js.map",
     "index.html": "/vocupractice/index.html",
     "static/css/2.d1c75e18.chunk.css.map": "/vocupractice/static/css/2.d1c75e18.chunk.css.map",
     "static/css/main.2ae47eeb.chunk.css.map": "/vocupractice/static/css/main.2ae47eeb.chunk.css.map",
-    "static/js/2.b2ca9a98.chunk.js.LICENSE.txt": "/vocupractice/static/js/2.b2ca9a98.chunk.js.LICENSE.txt"
+    "static/js/2.ec072ad6.chunk.js.LICENSE.txt": "/vocupractice/static/js/2.ec072ad6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.54c4622d.js",
     "static/css/2.d1c75e18.chunk.css",
-    "static/js/2.b2ca9a98.chunk.js",
+    "static/js/2.ec072ad6.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.b668066f.chunk.js"
+    "static/js/main.2b3d3473.chunk.js"
   ]
 }
